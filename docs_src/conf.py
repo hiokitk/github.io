@@ -19,7 +19,7 @@ sys.path.insert(0, os.path.abspath('..'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'teck-note'
+project = 'tech-note'
 copyright = '2022, hiokit'
 author = 'hiokit'
 

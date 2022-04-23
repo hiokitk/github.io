@@ -1,0 +1,142 @@
+Sphinxの環境構築
+================
+本章では、Sphinxの環境構築について記述する。
+Pythonのプロジェクトに、Sphinxを利用してhtmlドキュメントを作成してGitHub Pagesを利用して公開する。
+
+`Sphinxとは、 <https://www.sphinx-doc.org/ja/master/>`_reStructuredTextと呼ばれる軽量マークアップ言語を用いたドキュメント作成ツール
+
+
+前提事項
+---------
+構築に使用した環境は以下の通り。
+
+* OS：Ubuntu 20.04 LTS（WSL2）
+* python 3.8.10
+* pip 20.0.2
+
+
+Sphinxの導入
+--------------
+1. pip3を利用してSphinxのインストールを行う。
+
+.. sourcecode:: bash
+   :linenos:
+
+   $ sudo pip install sphinx
+
+2. Sphinxの拡張テーマである（sphinx_rtd_theme）をインストールする。
+
+.. sourcecode:: bash
+   :linenos:
+
+   $ sudo pip install sphinx_rtd_theme
+
+Sphinxプロジェクトの作成
+--------------------------
+1. sphinx-quickstartコマンドでsphinxのプロジェクトを作成する。
+
+以下の構成でプロジェクトを作成する。
+
+::
+
+project/
+ |- docs_src/　　ビルドするrstファイルの置き場
+ |- docs/      　公開するhtmlファイルの置き場
+ 
+
+以下のコマンドでプロジェクトを作成する。
+
+.. sourcecode:: bash
+   :linenos:
+
+   $ sphinx-quickstart docs_src
+
+ソースとビルドのディレクトリを完全に分けるかどうか。
+デフォルトだとソースフォルダ内に_buildディレクトリができる。
+その他入力が必要な項目があるが、適当で問題なし。
+.. sourcecode:: bash
+   :linenos:
+
+> Separate source and build directories (y/n) [n]:
+
+2. conf.pyを修正する。
+
+pythonプロジェクトへのパスを通すため以下の修正をする。
+.. sourcecode:: python3
+   :linenos:
+
+   # import os
+   # import sys
+   # sys.path.insert(0, os.path.abspath('.'))
+
+   import os
+   import sys
+   sys.path.insert(0, os.path.abspath('..'))
+
+拡張機能の設定のため以下の修正をする。
+  sphinx.ext.autodoc    :docstringを自動で読み込むために必要。
+  sphinx.ext.napoleon   :Googleスタイルのdocstringを整形するために必要。
+  sphinx.ext.githubpages:作成するhtmlドキュメントをGitHub Pagesで公開するために必要。
+  sphinx_rtd_theme      :拡張テーマ（sphinx_rtd_theme）の適用のために必要。
+
+.. sourcecode:: python3
+   :linenos:
+
+extensions = [
+    'sphinx.ext.autodoc',
+    'sphinx.ext.napoleon',
+    'sphinx.ext.githubpages'
+]
+
+   # -- Options for HTML output ---
+   html_theme = 'sphinx_rtd_theme'
+
+3. ドキュメントの作成（rstファイル、htmlファイル）
+
+まず、sphinx-apidocを使用してhtmlの元となる、rstファイルを作成する。
+以下のコマンドを実行するとdocs_src下にモジュール毎のrstファイルが作成される。
+
+.. sourcecode:: bash
+   :linenos:
+
+   $ sphinx-apidoc -f -o ./docs_src .
+
+-fはファイルの上書きをONにする設定。
+-oは出力先ディレクトリ（今回は./docs）の指定のための設定。
+
+次に、作成したrstを使用して、docsディレクトリ下にhtmlファイルを作成する。
+（GitHub Pagesでページを公開するためには、docsディレクトリ下にhtmlファイルを作成しなければならない。）
+
+.. sourcecode:: bash
+   :linenos:
+
+   $ sphinx-build -b html ./docs_src ./docs
+
+4. 作成したプロジェクトをgithubで公開する
+
+Github上でリポジトリを作成した後、プロジェクトのセットアップを行う。
+（first-commitを行わないと、gh-pagesブランチの作成ができない）
+
+.. sourcecode:: bash
+   :linenos:
+
+   $ echo "# test" >> README.md
+   $ git init
+   $ git add README.md
+   $ git commit -m "first commit"
+   $ git remote add origin https://github.com/user/xxxxx
+   $ git push origin master
+
+作成したSphinxプロジェクトをGithubPagesと連携する。
+
+.. sourcecode:: bash
+   :linenos:
+
+   $ git branch gh-pages
+   $ git checkout gh-pages
+   $ git add .
+   $ git commit -m "setup sphinx"
+   $ git push origin gh-pages
+
+
+Githubのリポジトリの公開設定を行う。Sourceにはdocs配下のファイルを設定する。
