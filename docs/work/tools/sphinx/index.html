@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sphinxの環境構築 &mdash; tech-note  ドキュメント</title>
+  <title>Sphinx &mdash; tech-note  ドキュメント</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,8 +19,8 @@
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../genindex.html" />
     <link rel="search" title="検索" href="../../../search.html" />
-    <link rel="next" title="githubのメモ" href="../git/index.html" />
-    <link rel="prev" title="ツール類に関するメモ" href="../index.html" /> 
+    <link rel="next" title="github" href="../git/index.html" />
+    <link rel="prev" title="環境構築" href="../index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -39,22 +39,18 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../../beginner/1-terasoluna/index.html">TERASOLUNA</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../beginner/2-springboot/index.html">SpringBoot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../beginner/3-aws/index.html">AWS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../beginner/4-cna/index.html">CNA</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../beginner/5-msa/index.html">MSA</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../theme/index.html">テーマ検証</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../debug/index.html">Debugメモ</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html">ツール類に関するメモ</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Sphinxの環境構築</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../beginner/index.html">チュートリアル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../theme/index.html">技術検証</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../debug/index.html">debug</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">環境構築</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Sphinx</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id2">前提事項</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id3">Sphinxの導入</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id4">Sphinxプロジェクトの作成</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../git/index.html">githubのメモ</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../inteliJ/index.html">InteliJのメモ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../git/index.html">github</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inteliJ/index.html">InteliJ</a></li>
 </ul>
 </li>
 </ul>
@@ -73,8 +69,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../index.html">ツール類に関するメモ</a> &raquo;</li>
-      <li>Sphinxの環境構築</li>
+          <li><a href="../index.html">環境構築</a> &raquo;</li>
+      <li>Sphinx</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../../_sources/work/tools/sphinx/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -85,8 +81,8 @@
            <div itemprop="articleBody">
              
   <section id="sphinx">
-<h1>Sphinxの環境構築<a class="headerlink" href="#sphinx" title="このヘッドラインへのパーマリンク"></a></h1>
-<p>本章では、Sphinxの環境構築について記述する。
+<h1>Sphinx<a class="headerlink" href="#sphinx" title="このヘッドラインへのパーマリンク"></a></h1>
+<p>Sphinxの環境構築について記述する。
 Pythonのプロジェクトに、Sphinxを利用してhtmlドキュメントを作成してGitHub Pagesを利用して公開する。</p>
 <p><a class="reference external" href="https://www.sphinx-doc.org/ja/master/">Sphinxとは、</a>
 reStructuredTextと呼ばれる軽量マークアップ言語を用いたドキュメント作成ツール</p>
@@ -120,9 +116,9 @@ reStructuredTextと呼ばれる軽量マークアップ言語を用いたドキ�
 <li><p>sphinx-quickstartコマンドでsphinxのプロジェクトを作成する。</p></li>
 </ol>
 <p>以下の構成でプロジェクトを作成する。</p>
-<dl class="simple">
-<dt>project/</dt><dd><p>docs_src/　　ビルドするrstファイルの置き場
-docs/      　公開するhtmlファイルの置き場</p>
+<dl>
+<dt>project/</dt><dd><p>docs_src/　　ビルドするrstファイルの置き場</p>
+<p>docs/      　公開するhtmlファイルの置き場</p>
 </dd>
 </dl>
 <p>以下のコマンドでプロジェクトを作成する。</p>
@@ -207,8 +203,8 @@ sphinx_rtd_theme      :拡張テーマ（sphinx_rtd_theme）の適用のため�
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../index.html" class="btn btn-neutral float-left" title="ツール類に関するメモ" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../git/index.html" class="btn btn-neutral float-right" title="githubのメモ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../index.html" class="btn btn-neutral float-left" title="環境構築" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../git/index.html" class="btn btn-neutral float-right" title="github" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

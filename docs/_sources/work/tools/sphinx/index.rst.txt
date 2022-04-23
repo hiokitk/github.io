@@ -1,6 +1,6 @@
-Sphinxの環境構築
+Sphinx
 ================
-本章では、Sphinxの環境構築について記述する。
+Sphinxの環境構築について記述する。
 Pythonのプロジェクトに、Sphinxを利用してhtmlドキュメントを作成してGitHub Pagesを利用して公開する。
 
 `Sphinxとは、 <https://www.sphinx-doc.org/ja/master/>`_
@@ -41,6 +41,7 @@ Sphinxプロジェクトの作成
 
 project/
   docs_src/　　ビルドするrstファイルの置き場
+  
   docs/      　公開するhtmlファイルの置き場 
 
 
