@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sphinxの環境構築 &mdash; tech-note  ドキュメント</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/translations.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="検索" href="../../../search.html" />
+    <link rel="next" title="githubのメモ" href="../git/index.html" />
+    <link rel="prev" title="ツール類に関するメモ" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> tech-note
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../beginner/1-terasoluna/index.html">TERASOLUNA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../beginner/2-springboot/index.html">SpringBoot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../beginner/3-aws/index.html">AWS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../beginner/4-cna/index.html">CNA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../beginner/5-msa/index.html">MSA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../theme/index.html">テーマ検証</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../debug/index.html">Debugメモ</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">ツール類に関するメモ</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Sphinxの環境構築</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">前提事項</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Sphinxの導入</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Sphinxプロジェクトの作成</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../git/index.html">githubのメモ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inteliJ/index.html">InteliJのメモ</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">tech-note</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">ツール類に関するメモ</a> &raquo;</li>
+      <li>Sphinxの環境構築</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/work/tools/sphinx/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sphinx">
+<h1>Sphinxの環境構築<a class="headerlink" href="#sphinx" title="このヘッドラインへのパーマリンク"></a></h1>
+<p>本章では、Sphinxの環境構築について記述する。
+Pythonのプロジェクトに、Sphinxを利用してhtmlドキュメントを作成してGitHub Pagesを利用して公開する。</p>
+<p><a class="reference external" href="https://www.sphinx-doc.org/ja/master/">Sphinxとは、</a>
+reStructuredTextと呼ばれる軽量マークアップ言語を用いたドキュメント作成ツール</p>
+<section id="id2">
+<h2>前提事項<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク"></a></h2>
+<p>構築に使用した環境は以下の通り。</p>
+<ul class="simple">
+<li><p>OS：Ubuntu 20.04 LTS（WSL2）</p></li>
+<li><p>python 3.8.10</p></li>
+<li><p>pip 20.0.2</p></li>
+</ul>
+</section>
+<section id="id3">
+<h2>Sphinxの導入<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク"></a></h2>
+<ol class="arabic simple">
+<li><p>pip3を利用してSphinxのインストールを行う。</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>$ sudo pip install sphinx
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Sphinxの拡張テーマである（sphinx_rtd_theme）をインストールする。</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>$ sudo pip install sphinx_rtd_theme
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h2>Sphinxプロジェクトの作成<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク"></a></h2>
+<ol class="arabic simple">
+<li><p>sphinx-quickstartコマンドでsphinxのプロジェクトを作成する。</p></li>
+</ol>
+<p>以下の構成でプロジェクトを作成する。</p>
+<dl class="simple">
+<dt>project/</dt><dd><p>docs_src/　　ビルドするrstファイルの置き場
+docs/      　公開するhtmlファイルの置き場</p>
+</dd>
+</dl>
+<p>以下のコマンドでプロジェクトを作成する。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>$ sphinx-quickstart docs_src
+</pre></div>
+</div>
+<p>ソースとビルドのディレクトリを完全に分けるかどうか。
+デフォルトだとソースフォルダ内に_buildディレクトリができる。
+その他入力が必要な項目があるが、適当で問題なし。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>&gt; Separate <span class="nb">source</span> and build directories <span class="o">(</span>y/n<span class="o">)</span> <span class="o">[</span>n<span class="o">]</span>:
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>conf.pyを修正する。</p></li>
+</ol>
+<p>pythonプロジェクトへのパスを通すため以下の修正をする。</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># import os</span>
+<span class="linenos">2</span><span class="c1"># import sys</span>
+<span class="linenos">3</span><span class="c1"># sys.path.insert(0, os.path.abspath(&#39;.&#39;))</span>
+<span class="linenos">4</span>
+<span class="linenos">5</span><span class="kn">import</span> <span class="nn">os</span>
+<span class="linenos">6</span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="linenos">7</span><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>拡張機能の設定のため以下の修正をする。</dt><dd><p>sphinx.ext.autodoc    :docstringを自動で読み込むために必要。
+sphinx.ext.napoleon   :Googleスタイルのdocstringを整形するために必要。
+sphinx.ext.githubpages:作成するhtmlドキュメントをGitHub Pagesで公開するために必要。
+sphinx_rtd_theme      :拡張テーマ（sphinx_rtd_theme）の適用のために必要。</p>
+</dd>
+</dl>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">extentions</span><span class="p">[</span>
+<span class="linenos">2</span> <span class="s1">&#39;sphinx.ext.autodoc&#39;</span><span class="p">,</span>
+<span class="linenos">3</span> <span class="s1">&#39;sphinx.ext.napoleon&#39;</span><span class="p">,</span>
+<span class="linenos">4</span> <span class="s1">&#39;sphinx.ext.githubpages&#39;</span>
+<span class="linenos">5</span><span class="p">]</span>
+<span class="linenos">6</span><span class="n">html_theme</span> <span class="o">=</span> <span class="s1">&#39;sphinx_rtd_theme&#39;</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>ドキュメントの作成（rstファイル、htmlファイル）</p></li>
+</ol>
+<p>まず、sphinx-apidocを使用してhtmlの元となる、rstファイルを作成する。
+以下のコマンドを実行するとdocs_src下にモジュール毎のrstファイルが作成される。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>$ sphinx-apidoc -f -o ./docs_src .
+</pre></div>
+</div>
+<p>-fはファイルの上書きをONにする設定。
+-oは出力先ディレクトリ（今回は./docs）の指定のための設定。</p>
+<p>次に、作成したrstを使用して、docsディレクトリ下にhtmlファイルを作成する。
+（GitHub Pagesでページを公開するためには、docsディレクトリ下にhtmlファイルを作成しなければならない。）</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>$ sphinx-build -b html ./docs_src ./docs
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>作成したプロジェクトをgithubで公開する</p></li>
+</ol>
+<p>Github上でリポジトリを作成した後、プロジェクトのセットアップを行う。
+（first-commitを行わないと、gh-pagesブランチの作成ができない）</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>$ <span class="nb">echo</span> <span class="s2">&quot;# test&quot;</span> &gt;&gt; README.md
+<span class="linenos">2</span>$ git init
+<span class="linenos">3</span>$ git add README.md
+<span class="linenos">4</span>$ git commit -m <span class="s2">&quot;first commit&quot;</span>
+<span class="linenos">5</span>$ git remote add origin https://github.com/user/xxxxx
+<span class="linenos">6</span>$ git push origin master
+</pre></div>
+</div>
+<p>作成したSphinxプロジェクトをGithubPagesと連携する。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>$ git branch gh-pages
+<span class="linenos">2</span>$ git checkout gh-pages
+<span class="linenos">3</span>$ git add .
+<span class="linenos">4</span>$ git commit -m <span class="s2">&quot;setup sphinx&quot;</span>
+<span class="linenos">5</span>$ git push origin gh-pages
+</pre></div>
+</div>
+<p>Githubのリポジトリの公開設定を行う。Sourceにはdocs配下のファイルを設定する。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="ツール類に関するメモ" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../git/index.html" class="btn btn-neutral float-right" title="githubのメモ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, hiokit.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

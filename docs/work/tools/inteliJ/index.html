@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InteliJのメモ &mdash; tech-note  ドキュメント</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/translations.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="検索" href="../../../search.html" />
+    <link rel="prev" title="githubのメモ" href="../git/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> tech-note
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../beginner/1-terasoluna/index.html">TERASOLUNA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../beginner/2-springboot/index.html">SpringBoot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../beginner/3-aws/index.html">AWS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../beginner/4-cna/index.html">CNA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../beginner/5-msa/index.html">MSA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../theme/index.html">テーマ検証</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../debug/index.html">Debugメモ</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">ツール類に関するメモ</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../sphinx/index.html">Sphinxの環境構築</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../git/index.html">githubのメモ</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">InteliJのメモ</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">前提事項</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">インストール～アプリケーション起動まで</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">tech-note</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">ツール類に関するメモ</a> &raquo;</li>
+      <li>InteliJのメモ</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/work/tools/inteliJ/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="intelij">
+<h1>InteliJのメモ<a class="headerlink" href="#intelij" title="このヘッドラインへのパーマリンク"></a></h1>
+<p>InteliJの環境構築手順について記述する。</p>
+<section id="id1">
+<h2>前提事項<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク"></a></h2>
+<p>構築に使用した環境は以下の通り。</p>
+<ul class="simple">
+<li><p>OS：Windows10</p></li>
+<li><p>JRE：1.8.0_201</p></li>
+<li><p>Tomcat：8.0.23</p></li>
+</ul>
+</section>
+<section id="id2">
+<h2>インストール～アプリケーション起動まで<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク"></a></h2>
+<dl class="simple">
+<dt>#.インストール</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="https://sukkiri.jp/technologies/ides/intellij-idea/intellij-idea-win.html">参考サイト</a> よりインストール。インストール時のチェックは全てデフォルト。</p></li>
+</ul>
+</dd>
+<dt>#.日本語化</dt><dd><ul class="simple">
+<li><p>InteliJを起動し、「Plugins」から、検索テキストボックスに「japanese」と入力し、一覧に出てきた「Japanese Language Pack / 日本語言語パック」をインストール。</p></li>
+</ul>
+</dd>
+<dt>#.mavenプロジェクトのインポート</dt><dd><ul class="simple">
+<li><p>「ファイル」→「新規」→「既存ソースのプロジェクト」から、インポートするプロジェクトのディレクトリを選択。</p></li>
+<li><p>次画面で、「既存モデルからプロジェクトをインポート」と「Maven」にチェックが入っていることを確認し、作成する。</p></li>
+</ul>
+</dd>
+<dt>#.サーバ構成設定・起動</dt><dd><ul class="simple">
+<li><p>プロジェクトを選択した状態で、「実行」→「実行構成の編集」を選択し、サーバは「Tomcatサーバ（ローカル）」を選択する。</p></li>
+<li><p>「サーバ」タブの「JRE」に、ローカル環境にインストールしているJREのパスを入れる。</p></li>
+<li><p>「デプロイ」タブで、「＋」を選択し、アーティファクトを追加する。
+（あらかじめ定義された展開ディレクトリのアーティファクトを使用するため、 &lt;モジュール名&gt; war:exploded アーティファクトを選択。）
+https://pleiades.io/help/idea/configure-web-app-deployment.html</p></li>
+<li><p>「サーバ」タブの「URL」がアプリケーション名となっていることを確認し、サーバ起動する。</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../git/index.html" class="btn btn-neutral float-left" title="githubのメモ" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, hiokit.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
