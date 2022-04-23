@@ -3,7 +3,8 @@ AWS
 本章ではAWSのハンズオン時の作業メモを残す。
 
 `実施したハンズオン <https://pages.awscloud.com/event_JAPAN_Hands-on-for-Beginners-Serverless-2019_LP.html?trk=aws_introduction_page>`_
-では、AWSLambda/APIGateway/AWS-Translate/DynamoDBを組み合わせた翻訳APIを構築する。
+では、AWSLambda/APIGateway/AWS-Translate/DynamoDBを組み合わせた翻訳APIを構築した。
+
 .. image::https://d2908q01vomqb2.cloudfront.net/b3f0c7f6bb763af1be91d9e74eabfeb199dc1f1f/2019/11/07/aws-hands-on-for-beginners-1-2-1024x576.png
 
 今後は以下を着手予定。
@@ -13,19 +14,26 @@ https://aws.amazon.com/jp/getting-started/hands-on/build-serverless-web-app-lamb
 ------------------------------------------
 
 * サーバレスとは
+
   サーバーレスとは、サーバーの構築や保守などの面倒な管理をすることなく、サーバー上でプログラムを実行できる仕組み。
   サーバー“レス”とはいうのは、サーバーの管理が一切不要（サーバー管理レス）になるので、「サーバーレス」と呼ばれている。
   実際にサーバは存在するが、構築、保守、負荷対策などは、利用者側で意識する必要がなく、開発者はコードを書くことにより集中できる。
   また、料金体系は、リクエストベースとなり、実行回数と実行時間（確保したメモリ量）で決まる。
 
 * ハンズオンの実施内容
+
   ハンズオンでは以下をおこなった。
+
   ①AWS Lambdaの作成（Python3.7）
+
   ②AWS Lambda から他のAWSサービス（AWS-Translate）の呼び出し
+
   ③APIGatewayから呼び出す。
+
   ④DynamoDBとの連携
   
 ①AWS Lambdaの作成（Python3.7）
+
 ・ランタイムは以下から選べる
 ・メモリ、タイムアウト値は以下の範囲で設定可能
 　メモリ：128MB 〜 3,008MB （64MBごと）
@@ -34,28 +42,27 @@ https://aws.amazon.com/jp/getting-started/hands-on/build-serverless-web-app-lamb
 ・APの実行は、テストイベントを作成し、入力データを定義して実行する。
 
 ②AWS Lambda から他のAWSサービス（AWS-Translate）の呼び出し
+
 ・SDK（PythonSDK boto3）を参照し、実装を修正する。
 　Boto3とはAWSをPythonから操作するためのライブラリの名称。
 　https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/index.html
 
-・以下の感じで、実装を修正。
-　必要なライブラリをインポートする。
-　⇒今回だと以下の感じ。
+・実装を修正する。まず、必要なライブラリをインポートする。
 
 .. sourcecode:: python3
    :linenos:
 
-　　import boto3
-　　client = boto3.client('translate')
+   import boto3
+   client = boto3.client('translate')
 
-　Request Syntaxを参考に、ライブラリの実行処理を実装する
-　　⇒Parametersをみて、必須パラメータ（REQUIRED）以外は、不要であれば削除でＯＫ
+Request Syntaxを参考に、ライブラリの実行処理を実装する
+⇒Parametersをみて、必須パラメータ（REQUIRED）以外は、不要であれば削除でＯＫ
 
-　Response Syntaxを参考に、リクエスト結果の取得処理を実装する
-　　⇒Json形式でリクエストは返却されるため、「response.get('フィールド名')」の形式で取得する。
+Response Syntaxを参考に、リクエスト結果の取得処理を実装する
+⇒Json形式でリクエストは返却されるため、「response.get('フィールド名')」の形式で取得する。
 
 ・Lamdaのロールにポリシーをアタッチする。
-　⇒別のサービスを呼出す場合（今回だとAWS-Translate）、そのサービスのポリシーが必要とある。
+⇒別のサービスを呼出す場合（今回だとAWS-Translate）、そのサービスのポリシーが必要とある。
 
 
 ③APIGatewayから呼び出す。
@@ -81,10 +88,13 @@ https://aws.amazon.com/jp/getting-started/hands-on/build-serverless-web-app-lamb
 5)デプロイ
   ⇒ステージを作成し、そのステージにのみデプロイできる。
 
+
 Lambdaプロキシ統合とは
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 API GatewayがクライアントリクエストをバックエンドLambdaの入力eventパラメータにマッピングする機能。
 また、bodyに設定した値をResponse Bodyとして返してくれる。
 ⇒本設定を有効にする場合、ResponseSyntaxが変わるので、実装を修正する。
+
 https://qiita.com/yuuwatanabe/items/a3bd65e709f20574b6db
 
