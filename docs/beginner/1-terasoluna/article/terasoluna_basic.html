@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TERASOLUNA Server Frameworkの概要 &mdash; tech-note  ドキュメント</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/translations.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="検索" href="../../../search.html" />
+    <link rel="next" title="TERASOLUNA Server Framework" href="terasoluna_tutorial.html" />
+    <link rel="prev" title="SpringFrameWorkにおける主要機能" href="spring_basic.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> tech-note
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">チュートリアル</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">TERASOLUNA</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="spring_basic.html">SpringFrameWorkにおける主要機能</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">TERASOLUNA Server Frameworkの概要</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">フレームワークの構成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">アーキテクチャの概要</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">アーキテクチャの思想</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="terasoluna_tutorial.html">TERASOLUNA Server Framework</a></li>
+<li class="toctree-l3"><a class="reference internal" href="terasoluna_tutorial_rest.html">TERASOLUNA Server Framework（REST編）</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../2-springboot/index.html">SpringBoot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../3-aws/index.html">AWS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../4-cna/index.html">CNA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../5-msa/index.html">MSA</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../theme/index.html">技術検証</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../work/debug/index.html">debug</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../work/tools/index.html">環境構築</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">tech-note</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">チュートリアル</a> &raquo;</li>
+          <li><a href="../index.html">TERASOLUNA</a> &raquo;</li>
+      <li>TERASOLUNA Server Frameworkの概要</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/beginner/1-terasoluna/article/terasoluna_basic.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="terasoluna-server-framework">
+<h1>TERASOLUNA Server Frameworkの概要<a class="headerlink" href="#terasoluna-server-framework" title="このヘッドラインへのパーマリンク"></a></h1>
+<p>本章ではTERASOLUNA Server Frameworkの概要をまとめる。</p>
+<p>本ページで掲載している図は <a class="reference external" href="http://terasolunaorg.github.io/guideline/current/ja/index.html">TERASOLUNA Server Framework</a> から引用している。</p>
+<section id="id2">
+<h2>フレームワークの構成<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul class="simple">
+<li><p>TERASOLUNA Server Frameworkは、SpringFrameworkを中心としたOSSの組み合わせで構成されている。</p></li>
+<li><p>SpringFrameWorkのDI、AOPをベースとし、アプリケーション層では、Spring MVCを、インフラ層ではMyBatis3かSpringDataJPAを用いる。</p></li>
+</ul>
+<img alt="http://terasolunaorg.github.io/guideline/current/ja/_images/introduction-software-stack.png" src="http://terasolunaorg.github.io/guideline/current/ja/_images/introduction-software-stack.png" />
+</section>
+<section id="id3">
+<h2>アーキテクチャの概要<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul class="simple">
+<li><p>TERASOLUNA Server Frameworkでは、アプリケーションを、次の3レイヤに分割している。</p></li>
+<li><p>入力から出力までのデータの流れは、アプリケーション層→ドメイン層→インフラストラクチャ層となる。</p></li>
+</ul>
+<img alt="http://terasolunaorg.github.io/guideline/current/ja/_images/ApplicationLayer.png" src="http://terasolunaorg.github.io/guideline/current/ja/_images/ApplicationLayer.png" />
+<section id="id4">
+<h3>アプリケーション層<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク"></a></h3>
+<ul class="simple">
+<li><dl class="simple">
+<dt>クライアントとのデータの入出力を制御する層。以下の実装をおこなう。</dt><dd><ul>
+<li><p>入力データの妥当性チェック</p></li>
+<li><p>データの入出力を行うオブジェクトへのマッピング</p></li>
+<li><p>クライアントからのリクエストハンドリング</p></li>
+<li><p>リクエスト内容に対応するドメイン層のコンポーネントの呼び出し</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="id5">
+<h3>ドメイン層<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク"></a></h3>
+<ul class="simple">
+<li><dl class="simple">
+<dt>ビジネスルールを実行(業務処理を提供)する層。以下の実装をおこなう。</dt><dd><ul>
+<li><p>Domain Object</p></li>
+<li><p>Domain Objectに対するビジネスルールのチェック</p></li>
+<li><p>Domain Objectに対するビジネスルールの実行</p></li>
+<li><p>Domain Objectに対するCRUD操作(インタフェース実装)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="id6">
+<h3>インフラストラクチャ層<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク"></a></h3>
+<ul class="simple">
+<li><dl class="simple">
+<dt>ドメイン層(Repositoryインタフェース)の実装を提供する層。以下の実装をおこなう。</dt><dd><ul>
+<li><p>RepositoryImplの実装(CRUD処理)</p></li>
+<li><p>データベースとEntityのマッピング</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+</section>
+<section id="id7">
+<h2>アーキテクチャの思想<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul class="simple">
+<li><p>ドメイン層は、他の層からは疎であり、アプリケーション層とインフラストラクチャ層に依存してはならない。</p></li>
+<li><p>ドメイン層の変更によって、アプリケーション層に変更が生じるのは良いが、アプリケーション層の変更によって、ドメイン層の変更が生じるべきではない。</p></li>
+<li><p>そのため、以下の図のとおり、ドメイン層がコアとなり、アプリケーション層、インフラストラクチャ層がそれに依存する形となっている。また、レイヤ間の結合部は、インタフェースとして公開することで、疎結合となっている。</p></li>
+</ul>
+<img alt="http://terasolunaorg.github.io/guideline/current/ja/_images/LayerDependencies.png" src="http://terasolunaorg.github.io/guideline/current/ja/_images/LayerDependencies.png" />
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="spring_basic.html" class="btn btn-neutral float-left" title="SpringFrameWorkにおける主要機能" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="terasoluna_tutorial.html" class="btn btn-neutral float-right" title="TERASOLUNA Server Framework" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, hiokit.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

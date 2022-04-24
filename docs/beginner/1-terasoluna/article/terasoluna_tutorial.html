@@ -18,7 +18,9 @@
         <script src="../../../_static/translations.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../genindex.html" />
-    <link rel="search" title="検索" href="../../../search.html" /> 
+    <link rel="search" title="検索" href="../../../search.html" />
+    <link rel="next" title="TERASOLUNA Server Framework（REST編）" href="terasoluna_tutorial_rest.html" />
+    <link rel="prev" title="TERASOLUNA Server Frameworkの概要" href="terasoluna_basic.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -36,11 +38,30 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
-<li class="toctree-l1"><a class="reference internal" href="../index.html">TERASOLUNA</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../theme/index.html">テーマ検証</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../work/debug/index.html">Debugメモ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../work/tools/index.html">ツール類に関するメモ</a></li>
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">チュートリアル</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">TERASOLUNA</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="spring_basic.html">SpringFrameWorkにおける主要機能</a></li>
+<li class="toctree-l3"><a class="reference internal" href="terasoluna_basic.html">TERASOLUNA Server Frameworkの概要</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">TERASOLUNA Server Framework</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">前提事項</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">実施したチュートリアルの内容</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spirng-mvc">Spirng MVCの処理フロー</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">チュートリアル振り返り</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="terasoluna_tutorial_rest.html">TERASOLUNA Server Framework（REST編）</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../2-springboot/index.html">SpringBoot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../3-aws/index.html">AWS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../4-cna/index.html">CNA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../5-msa/index.html">MSA</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../theme/index.html">技術検証</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../work/debug/index.html">debug</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../work/tools/index.html">環境構築</a></li>
 </ul>
 
         </div>
@@ -57,6 +78,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">チュートリアル</a> &raquo;</li>
+          <li><a href="../index.html">TERASOLUNA</a> &raquo;</li>
       <li>TERASOLUNA Server Framework</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../../_sources/beginner/1-terasoluna/article/terasoluna_tutorial.rst.txt" rel="nofollow"> View page source</a>
@@ -74,18 +97,100 @@
 <h2>前提事項<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク"></a></h2>
 <p>検証環境は以下の通りである。</p>
 <ul class="simple">
-<li></li>
-<li></li>
-<li></li>
+<li><p>Windows10</p></li>
+<li><p>JDK1.8.0_201</p></li>
+<li><p>Tomcat8.0.23</p></li>
 </ul>
 <p>本ページで掲載している図は <a class="reference external" href="http://terasolunaorg.github.io/guideline/current/ja/index.html">TERASOLUNA Server Framework</a> から引用している。</p>
+</section>
+<section id="id3">
+<h2>実施したチュートリアルの内容<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul class="simple">
+<li><p>TODOを管理するアプリケーションを作成した。
+<a class="reference external" href="http://terasolunaorg.github.io/guideline/current/ja/Tutorial/TutorialTodo.html">http://terasolunaorg.github.io/guideline/current/ja/Tutorial/TutorialTodo.html</a></p></li>
+</ul>
+<img alt="http://terasolunaorg.github.io/guideline/current/ja/_images/image001.png" src="http://terasolunaorg.github.io/guideline/current/ja/_images/image001.png" />
+</section>
+<section id="spirng-mvc">
+<h2>Spirng MVCの処理フロー<a class="headerlink" href="#spirng-mvc" title="このヘッドラインへのパーマリンク"></a></h2>
+<p>リクエストを受けてからレスポンスを返すまでのSpringMVCの処理フローを以下の図に示す。</p>
+<img alt="http://terasolunaorg.github.io/guideline/current/ja/_images/RequestLifecycle.png" src="http://terasolunaorg.github.io/guideline/current/ja/_images/RequestLifecycle.png" />
+<ol class="arabic simple">
+<li><p>DispatcherServletが、リクエストを受け取る。</p></li>
+<li><p>DispatcherServletは、リクエスト処理を行うControllerの選択をHandlerMappingに委譲する。</p></li>
+<li><p>DispatcherServlet は、Controllerのビジネスロジック処理の実行をHandlerAdapterに委譲する。</p></li>
+<li><p>HandlerAdapter は、Controllerのビジネスロジック処理を呼び出す。</p></li>
+<li><p>Controllerは、ビジネスロジックを実行し、処理結果をModelに設定し、ビューの論理名をHandlerAdapterに返却する。</p></li>
+<li><p>DispatcherServletは、ビュー名に対応するViewの解決を、ViewResolverに委譲する。ViewResolverは、ビュー名にマッピングされているViewを返却する。</p></li>
+<li><p>DispatcherServletは、返却されたViewにレンダリング処理を委譲する。</p></li>
+<li><p>Viewは、Modelの持つ情報をレンダリングしてレスポンスを返却する。</p></li>
+</ol>
+</section>
+<section id="id4">
+<h2>チュートリアル振り返り<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul class="simple">
+<li><p>実際に手を動かしてみることで、より理解が深まった箇所は以下。</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>コントローラとサービスの実装について</p></li>
+<li><p>データの入出力について</p></li>
+<li><p>PRGパターンについて</p></li>
+</ul>
+</div></blockquote>
+<section id="controllerservice">
+<h3>ControllerとServiceの実装について<a class="headerlink" href="#controllerservice" title="このヘッドラインへのパーマリンク"></a></h3>
+<ul class="simple">
+<li><p>Controller</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>&#64;ModelAttributeによって、戻りをModelに追加している</p></li>
+<li><p>入力チェックの結果がBindingResultに格納されており、サービス実行前にエラーハンドリングする</p></li>
+<li><p>業務エラー時の制御のため、try-catchでサービスのメソッドを呼び出し、実行結果に応じて遷移先をreturnする</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>Service</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>業務チェックをおこない、NGであれば例外をthrowする</p></li>
+<li><p>入力値以外のModelの値は、Service側で詰めて、repositoryのメソッドを呼び出す。</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="id5">
+<h3>データの入出力について<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク"></a></h3>
+<ul>
+<li><p>&#64;ModelAttributeによって、FormオブジェクトのパラメータをバインドしてModelオブジェクトに追加される。</p></li>
+<li><p>また、このアノテーションが付いたメソッドの戻り値（Modelオブジェクト）は自動でリクエストスコープに設定される。</p></li>
+<li><p>そのため、FormオブジェクトやModelオブジェクトもJSPから参照できる。（クラス名の頭文字を小文字にしたものが属性名）</p></li>
+<li><p>別名でModelに追加したい場合は、以下のように実装する。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">model</span><span class="p">.</span><span class="na">addAttribute</span><span class="p">(</span><span class="s">&quot;todos&quot;</span><span class="p">,</span><span class="n">todos</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="prg">
+<h3>PRGパターンについて<a class="headerlink" href="#prg" title="このヘッドラインへのパーマリンク"></a></h3>
+<ul class="simple">
+<li><p>二重送信の防止手段の一つ。</p></li>
+<li><p>更新処理を行うリクエスト(POSTメソッド)に対する応答としてリダイレクトを返却し、その後ブラウザから自動的にリクエストされるGETメソッドの応答として遷移先の画面を返却するようにする。</p></li>
+<li><p>PRGパターンを適用することで、画面表示後にページの再読み込みを行った場合に発生するリクエストがGETメソッドになるため、更新処理の再実行を防ぐことが出来る。</p></li>
+</ul>
+</section>
 </section>
 </section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="terasoluna_basic.html" class="btn btn-neutral float-left" title="TERASOLUNA Server Frameworkの概要" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="terasoluna_tutorial_rest.html" class="btn btn-neutral float-right" title="TERASOLUNA Server Framework（REST編）" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

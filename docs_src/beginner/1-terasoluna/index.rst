@@ -7,5 +7,7 @@ TERASOLUNA
 .. toctree::
    :maxdepth: 1
 
+   article/spring_basic.rst
+   article/terasoluna_basic.rst
    article/terasoluna_tutorial.rst
    article/terasoluna_tutorial_rest.rst

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TERASOLUNA &mdash; tech-note  ドキュメント</title>
+  <title>サーバレスのユースケースについて &mdash; tech-note  ドキュメント</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,8 +19,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex.html" />
     <link rel="search" title="検索" href="../../search.html" />
-    <link rel="next" title="SpringFrameWorkにおける主要機能" href="article/spring_basic.html" />
-    <link rel="prev" title="チュートリアル" href="../index.html" /> 
+    <link rel="next" title="マイクロサービスアーキテクチャについて" href="../msa/index.html" />
+    <link rel="prev" title="技術検証" href="../index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -39,21 +39,16 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html">チュートリアル</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">TERASOLUNA</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="article/spring_basic.html">SpringFrameWorkにおける主要機能</a></li>
-<li class="toctree-l3"><a class="reference internal" href="article/terasoluna_basic.html">TERASOLUNA Server Frameworkの概要</a></li>
-<li class="toctree-l3"><a class="reference internal" href="article/terasoluna_tutorial.html">TERASOLUNA Server Framework</a></li>
-<li class="toctree-l3"><a class="reference internal" href="article/terasoluna_tutorial_rest.html">TERASOLUNA Server Framework（REST編）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../beginner/index.html">チュートリアル</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">技術検証</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../index.html#id2">直近の状況</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#id3">今後の予定</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">サーバレスのユースケースについて</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../msa/index.html">マイクロサービスアーキテクチャについて</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../2-springboot/index.html">SpringBoot</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../3-aws/index.html">AWS</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../4-cna/index.html">CNA</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../5-msa/index.html">MSA</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../theme/index.html">技術検証</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../work/debug/index.html">debug</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../work/tools/index.html">環境構築</a></li>
 </ul>
@@ -72,10 +67,10 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../index.html">チュートリアル</a> &raquo;</li>
-      <li>TERASOLUNA</li>
+          <li><a href="../index.html">技術検証</a> &raquo;</li>
+      <li>サーバレスのユースケースについて</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../_sources/beginner/1-terasoluna/index.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/theme/serverless/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -83,26 +78,17 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="terasoluna">
-<h1>TERASOLUNA<a class="headerlink" href="#terasoluna" title="このヘッドラインへのパーマリンク"></a></h1>
-<p>本章ではTERASOLUNA Frameworkのチュートリアル時の作業メモを残す。
-なお、作業時の各フレームワークのバージョンについては以下の通り。</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="article/spring_basic.html">SpringFrameWorkにおける主要機能</a></li>
-<li class="toctree-l1"><a class="reference internal" href="article/terasoluna_basic.html">TERASOLUNA Server Frameworkの概要</a></li>
-<li class="toctree-l1"><a class="reference internal" href="article/terasoluna_tutorial.html">TERASOLUNA Server Framework</a></li>
-<li class="toctree-l1"><a class="reference internal" href="article/terasoluna_tutorial_rest.html">TERASOLUNA Server Framework（REST編）</a></li>
-</ul>
-</div>
+  <section id="id1">
+<h1>サーバレスのユースケースについて<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク"></a></h1>
+<p>本章では <a class="reference external" href="https://aws.amazon.com/jp/blogs/news/webinar-bb-severless_usecase_pattern-2020/">[AWS Black Belt Online Seminar] 形で考えるサーバーレス設計 サーバーレスユースケースパターン解説</a> を読んでユースケースや自身の興味どころをまとめる。</p>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../index.html" class="btn btn-neutral float-left" title="チュートリアル" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="article/spring_basic.html" class="btn btn-neutral float-right" title="SpringFrameWorkにおける主要機能" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../index.html" class="btn btn-neutral float-left" title="技術検証" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../msa/index.html" class="btn btn-neutral float-right" title="マイクロサービスアーキテクチャについて" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

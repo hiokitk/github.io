@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SpringFrameWorkにおける主要機能 &mdash; tech-note  ドキュメント</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/translations.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="検索" href="../../../search.html" />
+    <link rel="next" title="TERASOLUNA Server Framework" href="terasoluna_tutorial.html" />
+    <link rel="prev" title="TERASOLUNA" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> tech-note
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">チュートリアル</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">TERASOLUNA</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">SpringFrameWorkにおける主要機能</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#di">DI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">アノテーション</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#aop">AOP</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="terasoluna_tutorial.html">TERASOLUNA Server Framework</a></li>
+<li class="toctree-l3"><a class="reference internal" href="terasoluna_tutorial_rest.html">TERASOLUNA Server Framework（REST編）</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../2-springboot/index.html">SpringBoot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../3-aws/index.html">AWS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../4-cna/index.html">CNA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../5-msa/index.html">MSA</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../theme/index.html">技術検証</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../work/debug/index.html">debug</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../work/tools/index.html">環境構築</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">tech-note</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">チュートリアル</a> &raquo;</li>
+          <li><a href="../index.html">TERASOLUNA</a> &raquo;</li>
+      <li>SpringFrameWorkにおける主要機能</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/beginner/1-terasoluna/article/spring_basic.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="springframework">
+<h1>SpringFrameWorkにおける主要機能<a class="headerlink" href="#springframework" title="このヘッドラインへのパーマリンク"></a></h1>
+<p>本章ではTERASOLUNA Server FrameworkのベースとなるSpringFrameWorkの主な機能について簡単にまとめる</p>
+<section id="di">
+<h2>DI<a class="headerlink" href="#di" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul class="simple">
+<li><p>DIとは、依存性(Dependency)を注入(Injection)する機能のこと。</p></li>
+<li><p>Javaでオブジェクトを生成する場合、new演算子でbean化(インスタンス化)することになるが、
+オブジェクトにアノテーションを付与することで、ApplicationContextによって、beanの自動生成と依存クラスへの設定が可能となっている。</p></li>
+<li><p>また、beanへのプロパティも設定ファイル上に定義することになるため、プロパティの変更時もソースコードの修正が発生しなくて済む。</p></li>
+</ul>
+</section>
+<section id="id1">
+<h2>アノテーション<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul>
+<li><p>アノテーションとは、&#64;で始まる文でビルド時に必要な処理を行ことができるというもので、以下のようなものがある。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>&#64;Component</p></td>
+<td><p>付与することで、クラスがBeanとして登録される</p></td>
+</tr>
+<tr class="row-even"><td><p>&#64;Transactional</p></td>
+<td><p>付与することで、トランザクション制御が行われる（開始・終了やコミット、ロールバック等の管理）</p></td>
+</tr>
+<tr class="row-odd"><td><p>&#64;Controller</p></td>
+<td><p>付与することで、Controllerクラスとして認識され、コンポーネントスキャンの対象となる</p></td>
+</tr>
+<tr class="row-even"><td><p>&#64;RequestMapping</p></td>
+<td><p>付与することでURLのルートになり、各メソッドはルートからの相対パスのURLにマッピングされる</p></td>
+</tr>
+<tr class="row-odd"><td><p>&#64;ModelAttribute</p></td>
+<td><p>使うことで、FormオブジェクトとHTML formを結びつけることができる</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</section>
+<section id="aop">
+<h2>AOP<a class="headerlink" href="#aop" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul class="simple">
+<li><p>Aspect Oriented Programming（アスペクト指向プログラミング）という技法。</p></li>
+<li><p>プログラムの特定の振る舞いをそのプログラム本体から分離し、いつでも組み込んだり取り除いたりできるようにする仕組み。</p></li>
+<li><p>例えば、ログ出力処理など、複数のクラスをまたがって実行したい処理について、アスペクトとして、別クラスに切り出してアノテーション化することで、
+呼び出し元クラスからは、ロガーのアノテーションを付与するだけでログ出力処理が実行可能となる。</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="TERASOLUNA" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="terasoluna_tutorial.html" class="btn btn-neutral float-right" title="TERASOLUNA Server Framework" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, hiokit.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
