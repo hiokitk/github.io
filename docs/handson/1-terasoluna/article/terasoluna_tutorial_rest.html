@@ -18,7 +18,9 @@
         <script src="../../../_static/translations.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../genindex.html" />
-    <link rel="search" title="検索" href="../../../search.html" /> 
+    <link rel="search" title="検索" href="../../../search.html" />
+    <link rel="next" title="SpringBoot" href="../../2-springboot/index.html" />
+    <link rel="prev" title="TERASOLUNA Server Framework" href="terasoluna_tutorial.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -36,7 +38,28 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">チュートリアル</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">TERASOLUNA</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="spring_basic.html">SpringFrameWorkにおける主要機能</a></li>
+<li class="toctree-l3"><a class="reference internal" href="terasoluna_basic.html">TERASOLUNA Server Frameworkの概要</a></li>
+<li class="toctree-l3"><a class="reference internal" href="terasoluna_tutorial.html">TERASOLUNA Server Framework</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">TERASOLUNA Server Framework（REST編）</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">前提事項</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rest">RESTとは</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#restful-web-service">RESTful Web Serviceの開発</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">実施したチュートリアルの内容</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">チュートリアル振り返り</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../2-springboot/index.html">SpringBoot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../3-aws/index.html">AWS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../4-cna/index.html">CNA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../5-msa/index.html">MSA</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../../theme/index.html">技術検証</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../work/debug/index.html">debug</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../work/tools/index.html">環境構築</a></li>
@@ -56,6 +79,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">チュートリアル</a> &raquo;</li>
+          <li><a href="../index.html">TERASOLUNA</a> &raquo;</li>
       <li>TERASOLUNA Server Framework（REST編）</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../../_sources/handson/1-terasoluna/article/terasoluna_tutorial_rest.rst.txt" rel="nofollow"> View page source</a>
@@ -130,13 +155,26 @@
 <li><p>Formオブジェクトの代わりにResourceオブジェクトを使う。beanmapperでModelに変換して、serviceに渡す。そしてModelをResourceに変換する。</p></li>
 <li><p>MappingJackson2HttpMessageConverterによって、Controllerの引数と返り値で扱うJavaBeanがJSONに変換される。</p></li>
 </ul>
+<section id="id4">
+<h3>以下についてまとめること<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク"></a></h3>
+<ul class="simple">
+<li><p>TERASOLUNA Server Framework for Java (5.x)による基本的なRESTful Webサービスの構築方法</p></li>
+<li><p>REST API(GET, POST, PUT, DELETE)を提供するControllerクラスの実装</p></li>
+<li><p>JavaBeanとJSONの相互変換方法</p></li>
+<li><p>エラーメッセージの定義方法</p></li>
+<li><p>Spring MVCを使用した各種例外のハンドリング方法</p></li>
+</ul>
+</section>
 </section>
 </section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="terasoluna_tutorial.html" class="btn btn-neutral float-left" title="TERASOLUNA Server Framework" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../2-springboot/index.html" class="btn btn-neutral float-right" title="SpringBoot" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

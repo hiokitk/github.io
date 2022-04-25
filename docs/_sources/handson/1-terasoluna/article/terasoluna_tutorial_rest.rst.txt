@@ -55,3 +55,12 @@ Spring MVCの機能を利用してRESTful Web Serviceを開発する場合、以
 * @ResponseStatusや@RequestBodyや@PathVariableや@PutMappingや@DeleteMappingというアノテーションをつかう。
 * Formオブジェクトの代わりにResourceオブジェクトを使う。beanmapperでModelに変換して、serviceに渡す。そしてModelをResourceに変換する。
 * MappingJackson2HttpMessageConverterによって、Controllerの引数と返り値で扱うJavaBeanがJSONに変換される。
+
+
+以下についてまとめること
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+* TERASOLUNA Server Framework for Java (5.x)による基本的なRESTful Webサービスの構築方法
+* REST API(GET, POST, PUT, DELETE)を提供するControllerクラスの実装
+* JavaBeanとJSONの相互変換方法
+* エラーメッセージの定義方法
+* Spring MVCを使用した各種例外のハンドリング方法

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>サーバーレスのウェブアプリケーションを構築 &mdash; tech-note  ドキュメント</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/translations.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="検索" href="../../../search.html" />
+    <link rel="next" title="CNA" href="../../4-cna/index.html" />
+    <link rel="prev" title="サーバーレスアーキテクチャで翻訳 Web API を構築する" href="serverless_api.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> tech-note
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">チュートリアル</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../1-terasoluna/index.html">TERASOLUNA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../2-springboot/index.html">SpringBoot</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">AWSハンズオン</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="serverless_api.html">サーバーレスアーキテクチャで翻訳 Web API を構築する</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">サーバーレスのウェブアプリケーションを構築</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">アーキテクチャ概要</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">ハンズオンの実施内容</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../4-cna/index.html">CNA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../5-msa/index.html">MSA</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../theme/index.html">技術検証</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../work/debug/index.html">debug</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../work/tools/index.html">環境構築</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">tech-note</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">チュートリアル</a> &raquo;</li>
+          <li><a href="../index.html">AWSハンズオン</a> &raquo;</li>
+      <li>サーバーレスのウェブアプリケーションを構築</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/handson/3-aws/serverless/serverless_web.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>サーバーレスのウェブアプリケーションを構築<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク"></a></h1>
+<p>本章ではAWSのハンズオン時の作業メモを残す。</p>
+<p><a class="reference external" href="https://aws.amazon.com/jp/getting-started/hands-on/build-serverless-web-app-lambda-apigateway-s3-dynamodb-cognito/">実施したハンズオン</a>
+では、以下のとおりAWSLambda、APIGateway、DynamoDB、Cognito、Amplifyを使用して、Webアプリケーションを構築した。</p>
+<img alt="https://d1.awsstatic.com/diagrams/Serverless_Architecture.5434f715486a0bdd5786cd1c084cd96efa82438f.png" src="https://d1.awsstatic.com/diagrams/Serverless_Architecture.5434f715486a0bdd5786cd1c084cd96efa82438f.png" />
+<section id="id3">
+<h2>アーキテクチャ概要<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul class="simple">
+<li><p>Amplifyは、継続的デプロイと、HTML/CSS/JavaScript、画像などを含む静的リソースのホストを提供する。</p></li>
+<li><p>JavaScriptは、Lambda と API Gateway を使用して構築されたパブリックバックエンド API からデータを送受信します。</p></li>
+<li><p>Cognitoは、バックエンド API を保護するためのユーザー管理機能と認証機能を提供する。</p></li>
+<li><p>DynamoDBは、APIのLambda 関数によってデータを格納できる永続レイヤーを提供する。</p></li>
+</ul>
+</section>
+<section id="id4">
+<h2>ハンズオンの実施内容<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク"></a></h2>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>静的ウェブホスティング</p></li>
+<li><p>ユーザ管理</p></li>
+<li><p>サーバレスバックエンド</p></li>
+<li><p>RESTful API</p></li>
+<li><p>リソースの終了</p></li>
+</ol>
+</div></blockquote>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="serverless_api.html" class="btn btn-neutral float-left" title="サーバーレスアーキテクチャで翻訳 Web API を構築する" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../4-cna/index.html" class="btn btn-neutral float-right" title="CNA" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, hiokit.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
