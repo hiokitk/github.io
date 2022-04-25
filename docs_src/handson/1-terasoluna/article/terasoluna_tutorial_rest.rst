@@ -52,5 +52,6 @@ Spring MVCの機能を利用してRESTful Web Serviceを開発する場合、以
 チュートリアル振り返り
 ----------------------------
 * 「RESPONSE」の「BODY」に実行結果のJSONが表示される。
-* @ResponseStatusというアノテーションをつかう。
+* @ResponseStatusや@RequestBodyや@PathVariableや@PutMappingや@DeleteMappingというアノテーションをつかう。
+* Formオブジェクトの代わりにResourceオブジェクトを使う。beanmapperでModelに変換して、serviceに渡す。そしてModelをResourceに変換する。
 * MappingJackson2HttpMessageConverterによって、Controllerの引数と返り値で扱うJavaBeanがJSONに変換される。
