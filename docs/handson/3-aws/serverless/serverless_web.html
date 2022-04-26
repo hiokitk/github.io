@@ -98,7 +98,7 @@ HTMLで表示された地図の位置を選択してリクエストを送信す�
 <h2>アーキテクチャ概要<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク"></a></h2>
 <ul class="simple">
 <li><p>Amplifyは、デプロイと、HTML/CSS/JavaScript、画像などの静的リソースのホストを提供する。</p></li>
-<li><p>JavaScriptは、API GatewayとLambdaを使用して構築されたパブリックバックエンド API からデータを送受信します。</p></li>
+<li><p>JavaScriptは、API GatewayとLambdaを使用して構築されたパブリックバックエンド API からデータを送受信する。</p></li>
 <li><p>Cognitoは、バックエンド API を保護するためのユーザー管理機能と認証機能を提供する。</p></li>
 <li><p>DynamoDBは、APIのLambda 関数によってデータを格納できる永続レイヤーを提供する。</p></li>
 </ul>
@@ -107,32 +107,51 @@ HTMLで表示された地図の位置を選択してリクエストを送信す�
 <h2>ハンズオンの実施内容<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク"></a></h2>
 <blockquote>
 <div><ol class="arabic simple">
-<li><p>静的ウェブホスティング
-* Amplifyでは、Hosting機能を用いて、リポジトリを接続してウェブアプリケーションをビルド、デプロイできる。
-* GitHubやAWS CodeCommitと連携できるが、今回は、AWS CodeCommitで作成したリポジトリと接続をした。</p></li>
-<li><p>ユーザ管理
-* ユーザーのアカウントを管理するため、Amazon Cognitoの「ユーザープール」を用いる。
-* 作成したユーザプールの「プールID」と、認証対象として追加したアプリケーションクライアントの「アプリケーションクライアントID」をメモ。
-* JavaScript上にAmazon Cognitoの接続情報として、「プールID」と「アプリケーションクライアントID」と「リージョン」を反映し、リポジトリにプッシュする。</p></li>
-<li><p>サーバレスバックエンド
-* DynamoDBのテーブルを作成し、ARNをメモ。
-* Lambda用のロールを作成する。また、作成したロールに、DynamoDBのテーブルへのPutItemができるポリシーを付与する。
-* Lambda関数を作成し、Node.jsをランタイムとする。作成したロールを付与し、既存のコードを指定されたコードに置き換える形で修正する。
-* Lambda関数のテストイベントを作成する。次のAPIGatewayで作成するREST APIを想定するHTTPリクエストをイベント内容に置き換える形で修正する。</p></li>
-<li><p>RESTful API
-* APIGateway作成し、Lambda関数をRESTful API として公開する。
-* 作成したAPIGatewayのオーソライザを設定する。Cognitoを選択し、既に作成済みのユーザプール名を入力する。
-* ユーザーがサインインした際に、Cognito が返すIDまたはアクセストークンを渡すように、[トークンソース] にAuthorizationと入力する。
-* 新しいリソース、メソッドを作成し、APIGateway CORSおよびLambdaプロキシ統合を有効にし、作成したLambda関数を呼び出す。また、「メソッドをリクエスト」から、Authorizationを選択し、Cognitoユーザプールにチェックをし、APIGatewayリクエスト時にCognitoへ認証されるよう設定する。
-* 新しいステージを作成し、APIGatewayをデプロイする。</p></li>
+<li><dl class="simple">
+<dt>静的ウェブホスティング</dt><dd><ul class="simple">
+<li><p>Amplifyでは、Hosting機能を用いて、リポジトリを接続してウェブアプリケーションをビルド、デプロイできる。</p></li>
+<li><p>GitHubやAWS CodeCommitと連携できるが、今回は、AWS CodeCommitで作成したリポジトリと接続をした。</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>ユーザ管理</dt><dd><ul class="simple">
+<li><p>ユーザーのアカウントを管理するため、Amazon Cognitoの「ユーザープール」を用いる。</p></li>
+<li><p>作成したユーザプールの「プールID」と、認証対象として追加したアプリケーションクライアントの「アプリケーションクライアントID」をメモ。</p></li>
+<li><p>JavaScript上にAmazon Cognitoの接続情報として、「プールID」と「アプリケーションクライアントID」と「リージョン」を反映し、リポジトリにプッシュする。</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>サーバレスバックエンド</dt><dd><ul class="simple">
+<li><p>DynamoDBのテーブルを作成し、ARNをメモ。</p></li>
+<li><p>Lambda用のロールを作成する。また、作成したロールに、DynamoDBのテーブルへのPutItemができるポリシーを付与する。</p></li>
+<li><p>Lambda関数を作成し、Node.jsをランタイムとする。作成したロールを付与し、既存のコードを指定されたコードに置き換える形で修正する。</p></li>
+<li><p>Lambda関数のテストイベントを作成する。次のAPIGatewayで作成するREST APIを想定するHTTPリクエストをイベント内容に置き換える形で修正する。</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>RESTful API</dt><dd><ul class="simple">
+<li><p>APIGateway作成し、Lambda関数をRESTful API として公開する。</p></li>
+<li><p>作成したAPIGatewayのオーソライザを設定する。Cognitoを選択し、既に作成済みのユーザプール名を入力する。</p></li>
+<li><p>ユーザーがサインインした際に、Cognito が返すIDまたはアクセストークンを渡すように、[トークンソース] にAuthorizationと入力する。</p></li>
+<li><p>新しいリソース、メソッドを作成し、APIGateway CORSおよびLambdaプロキシ統合を有効にし、作成したLambda関数を呼び出す。また、「メソッドをリクエスト」から、Authorizationを選択し、Cognitoユーザプールにチェックをし、APIGatewayリクエスト時にCognitoへ認証されるよう設定する。</p></li>
+<li><p>新しいステージを作成し、APIGatewayをデプロイする。</p></li>
+</ul>
+</dd>
+</dl>
+</li>
 </ol>
 </div></blockquote>
 </section>
 <section id="api-gateway-cors">
 <h2>API Gateway CORS<a class="headerlink" href="#api-gateway-cors" title="このヘッドラインへのパーマリンク"></a></h2>
 <p>CORS (Cross-Origin Resource Sharing)とは、ブラウザがオリジン以外のサーバからデータを取得すること。
-この設定がなされていないAPIは、ドメインが違うWebページ上のJavascriptから呼び出すこ&gt;とができません。
-^</p>
+この設定がなされていないAPIは、ドメインが違うWebページ上のJavascriptからの呼び出しができない。</p>
 </section>
 </section>
 
