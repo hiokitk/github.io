@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SpringBootの基本 &mdash; tech-note  ドキュメント</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/translations.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="検索" href="../../../search.html" />
+    <link rel="next" title="SpringBootのチュートリアル" href="springboot_tutorial.html" />
+    <link rel="prev" title="SpringBoot" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> tech-note
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">チュートリアル</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../1-terasoluna/index.html">TERASOLUNA</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">SpringBoot</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">SpringBootの基本</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">SpringBootとは</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#web">特徴①：Webコンテナを内包</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">特徴②：設定ファイルの記述が簡略化</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="springboot_tutorial.html">SpringBootのチュートリアル</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../3-aws/index.html">AWSハンズオン</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../4-cna/index.html">CNA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../5-msa/index.html">MSA</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../theme/index.html">技術検証</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../work/debug/index.html">debugメモ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../work/tools/index.html">環境構築</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">tech-note</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">チュートリアル</a> &raquo;</li>
+          <li><a href="../index.html">SpringBoot</a> &raquo;</li>
+      <li>SpringBootの基本</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/handson/2-springboot/basic/springboot.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="springboot">
+<h1>SpringBootの基本<a class="headerlink" href="#springboot" title="このヘッドラインへのパーマリンク"></a></h1>
+<p>本章ではSpringBootの基本的な事項について簡単にまとめる</p>
+<p>本ページで用いている図は、<a class="reference external" href="https://licensecounter.jp/devops-hub/blog/spring-boot1/">参考サイト</a> から引用している。</p>
+<section id="id2">
+<h2>SpringBootとは<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul class="simple">
+<li><p>Spring BootとはSpring Frameworkベースのアプリケーションを手軽に作成することができるフレームワークであり、以下の特徴を持つ。</p></li>
+</ul>
+</section>
+<section id="web">
+<h2>特徴①：Webコンテナを内包<a class="headerlink" href="#web" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul class="simple">
+<li><p>JavaでのWebシステム開発は、warファイルを作りTomcatやJBossなどのアプリケーションサーバーにデプロイするのが一般的だが、Spring BootでははじめからTomcatが組み込まれている。</p></li>
+<li><p>そのため、普通のJavaファイルと同じようにJavaクラスを起動すると、Tomcatも自動で起動してアプリケーションが勝手にデプロイされて動く。</p></li>
+<li><p>Spring Bootのアプリケーションをjar化することで、Tomcat一式もjarファイルの中に含まれるため、jarファイルのみだけで起動が可能（環境構築できる）ため、マイクロサービスとも相性がよい。</p></li>
+</ul>
+<img alt="https://licensecounter.jp/devops-hub/blog/e17a7e98bb6f8755e034fecdd59835f7985038ff.png" src="https://licensecounter.jp/devops-hub/blog/e17a7e98bb6f8755e034fecdd59835f7985038ff.png" />
+</section>
+<section id="id3">
+<h2>特徴②：設定ファイルの記述が簡略化<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul class="simple">
+<li><p>Spring FrameworkではXML形式の設定ファイルにより設定を外部化してSpringの機能を使うことができるが、使う機能が多岐にわたるため設定ファイルが煩雑になりやすい</p></li>
+<li><p>Spring Bootでは自動設定機能により、必要最低限の設定でアプリケーションの起動・実行をおこなうことができ、自動設定機能で不足する部分を追加で設定することとなる。</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="SpringBoot" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="springboot_tutorial.html" class="btn btn-neutral float-right" title="SpringBootのチュートリアル" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, hiokit.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

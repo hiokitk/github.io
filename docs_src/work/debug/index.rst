@@ -1,7 +1,5 @@
-debug
+debugメモ
 =================================
-
-Contents:
 
 .. toctree::
    :maxdepth: 2

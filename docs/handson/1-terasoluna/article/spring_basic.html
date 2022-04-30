@@ -42,9 +42,10 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../../index.html">チュートリアル</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html">TERASOLUNA</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">SpringFrameWorkにおける主要機能</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#di">DI</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id1">アノテーション</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#aop">AOP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">SpringFrameWorkとは</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#di">特徴①：DI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">特徴②：アノテーション</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#aop">特徴③：AOP</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="terasoluna_basic.html">TERASOLUNA Server Frameworkの概要</a></li>
@@ -59,7 +60,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../theme/index.html">技術検証</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../work/debug/index.html">debug</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../work/debug/index.html">debugメモ</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../work/tools/index.html">環境構築</a></li>
 </ul>
 
@@ -92,19 +93,55 @@
   <section id="springframework">
 <h1>SpringFrameWorkにおける主要機能<a class="headerlink" href="#springframework" title="このヘッドラインへのパーマリンク"></a></h1>
 <p>本章ではTERASOLUNA Server FrameworkのベースとなるSpringFrameWorkの主な機能について簡単にまとめる</p>
+<section id="id1">
+<h2>SpringFrameWorkとは<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul>
+<li><p>Spring Frameworkとは、Javaの開発環境で使用できるオープンソースのフレームワークである。</p></li>
+<li><p>Spring Frameworkは数多くのプロジェクトによって構築されており、作りたいシステムによってプロジェクトを使い分けることができる。</p>
+<p><a class="reference external" href="https://spring.io/projects">https://spring.io/projects</a></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>名称</p></td>
+<td><p>特徴</p></td>
+</tr>
+<tr class="row-even"><td><p>Spring Cloud</p></td>
+<td><p>クラウドアプリケーションの開発や構築に特化したプロジェクト</p></td>
+</tr>
+<tr class="row-odd"><td><p>Spring Security</p></td>
+<td><p>セキュリティ機能の開発をサポートするプロジェクト</p></td>
+</tr>
+<tr class="row-even"><td><p>Spring Batch</p></td>
+<td><p>データの集計処理といったバッチ処理のシステム構築向けのプロジェクト</p></td>
+</tr>
+<tr class="row-odd"><td><p>Spring Session</p></td>
+<td><p>セッション情報を管理するためシステム構築に特化したプロジェクト</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>豊富なプロジェクトを有し、幅広い開発に対応しているという一方で、規模の大きさゆえに学習コストが高い・全体を把握しにくいという欠点もある。</p></li>
+</ul>
+</section>
 <section id="di">
-<h2>DI<a class="headerlink" href="#di" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>特徴①：DI<a class="headerlink" href="#di" title="このヘッドラインへのパーマリンク"></a></h2>
 <ul class="simple">
-<li><p>DIとは、依存性(Dependency)を注入(Injection)する機能のこと。</p></li>
+<li><p>DIとは、依存性(Dependency)を注入(Injection)する機能のこと。Javaクラスから別のクラスを呼び出すために用いる。</p></li>
 <li><p>Javaでオブジェクトを生成する場合、new演算子でbean化(インスタンス化)することになるが、
 オブジェクトにアノテーションを付与することで、ApplicationContextによって、beanの自動生成と依存クラスへの設定が可能となっている。</p></li>
 <li><p>また、beanへのプロパティも設定ファイル上に定義することになるため、プロパティの変更時もソースコードの修正が発生しなくて済む。</p></li>
+<li><p>例えば、2つの依存関係にあるクラスが存在する場合、一方が未完成だとテストができないが、DIによりクラスの依存関係が解消されると、独立したプログラムとしてテストや改修ができるようになる</p></li>
 </ul>
 </section>
-<section id="id1">
-<h2>アノテーション<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク"></a></h2>
+<section id="id2">
+<h2>特徴②：アノテーション<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク"></a></h2>
 <ul>
-<li><p>アノテーションとは、&#64;で始まる文でビルド時に必要な処理を行ことができるというもので、以下のようなものがある。</p>
+<li><p>アノテーションとは、ソースコードに注釈を加えることで、プログラムの動作を変更したり、フレームワークに処理を指示したりできる仕組み。</p></li>
+<li><p>Springの場合、DIする情報を全て設定ファイルに定義してしまうと複雑になってしまうため、一部はアノテーションよって設定を有効にする。</p></li>
+<li><p>代表的なものとしては以下のようなものがある。コード量が減少し、ソースコードの可読性が上がるというメリットがある。</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 50%" />
@@ -112,7 +149,7 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p>&#64;Component</p></td>
-<td><p>付与することで、クラスがBeanとして登録される</p></td>
+<td><p>付与することで、クラスがSpringのDIコンテナにBeanとして登録される</p></td>
 </tr>
 <tr class="row-even"><td><p>&#64;Transactional</p></td>
 <td><p>付与することで、トランザクション制御が行われる（開始・終了やコミット、ロールバック等の管理）</p></td>
@@ -132,7 +169,7 @@
 </ul>
 </section>
 <section id="aop">
-<h2>AOP<a class="headerlink" href="#aop" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>特徴③：AOP<a class="headerlink" href="#aop" title="このヘッドラインへのパーマリンク"></a></h2>
 <ul class="simple">
 <li><p>Aspect Oriented Programming（アスペクト指向プログラミング）という技法。</p></li>
 <li><p>プログラムの特定の振る舞いをそのプログラム本体から分離し、いつでも組み込んだり取り除いたりできるようにする仕組み。</p></li>
