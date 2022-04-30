@@ -18,7 +18,7 @@ RESTとは
 ---------
 「REpresentational State Transfer」の略。以下の特徴を持つ。
  * セッションなどの状態管理を行わない。（ステートレス）
- * リソースの操作はHTTPメソッドによって指定。（HTTPのGETやPOSTメソッドなど）
+ * リソースの操作はHTTPメソッドによって指定。(HTTPのPOST/GET/PUT/DELETE）
  * リソースはURL/URIですべてのリソースを一意に識別できる。同一のURLへの呼び出しは常に同じ結果が期待される。
  * 処理結果はXMLやHTML、JSONなどで返される。処理結果をHTTPステータスコードで通知する。
 
@@ -51,16 +51,39 @@ Spring MVCの機能を利用してRESTful Web Serviceを開発する場合、以
 
 チュートリアル振り返り
 ----------------------------
-* 「RESPONSE」の「BODY」に実行結果のJSONが表示される。
-* @ResponseStatusや@RequestBodyや@PathVariableや@PutMappingや@DeleteMappingというアノテーションをつかう。
-* Formオブジェクトの代わりにResourceオブジェクトを使う。beanmapperでModelに変換して、serviceに渡す。そしてModelをResourceに変換する。
-* MappingJackson2HttpMessageConverterによって、Controllerの引数と返り値で扱うJavaBeanがJSONに変換される。
+* 処理の実行結果として、HTTPステータスコードと、レスポンスボディにデータがある場合は、JSON形式で表示される。
+* RESTAPIを扱う上では、Controller層において、以下のアノテーションを使う。
+
+.. csv-table::
+
+ "@ResponseStatus","クライアントにレスポンスを返す際のステータスコードを設定する。"
+ "@RequestBody","POSTリクエストにおいて、ボディからデータを取得し、json形式からResourceオブジェクトに変換する。"
+ "@PathVariable","REST形式のURLのパラメータをController側で受け取るために使う。"
+ "@GetMapping","GETリクエスト用のアノテーション。指定したリソースを取得する(READ)。"
+ "@PostMapping","POSTリクエスト用のアノテーション。指定したリソースを追加する(CREATE)。"
+ "@PutMapping","PUTリクエスト用のアノテーション。指定したリソースを更新する(UPDATE)。"
+ "@DeleteMapping","DELETEリクエスト用のアノテーション。指定したリソースを削除する(DELETE)。"
 
 
-以下についてまとめること
-^^^^^^^^^^^^^^^^^^^^^^^^^^
-* TERASOLUNA Server Framework for Java (5.x)による基本的なRESTful Webサービスの構築方法
-* REST API(GET, POST, PUT, DELETE)を提供するControllerクラスの実装
-* JavaBeanとJSONの相互変換方法
-* エラーメッセージの定義方法
-* Spring MVCを使用した各種例外のハンドリング方法
+* 入出力データの扱いとして、Formオブジェクトの代わりにResourceオブジェクトを使う。beanmapperでModelに変換して、serviceに渡す。そしてModelをResourceに変換する。
+* MappingJackson2HttpMessageConverterによって、Controllerの引数と返り値で扱うJavaBeanがJSONに変換される。Controllerの実装としては、処理実行後のModelをResourceに変換したオブジェクトを返却する。ResourceからJSONへの変換はフレームワーク側で実行され、実装で意識する必要ない。
+* レスポンスのHTTPステータスコードとしては、以下が返却される。
+
+.. csv-table::
+
+  "項番","HTTPステータスコード","説明","適用条件"
+  "(1)","200 OK","リクエストが成功した事を通知するHTTPステータスコード。","リクエストが成功した結果として、レスポンスのエンティティボディに、リクエストに対応するリソースの情報を出力する際に応答する。"
+  "(2)","201 Created","新しいリソースを作成した事を通知するHTTPステータスコード。","POSTメソッドを使用して、新しいリソースを作成した際に使用する。レスポンスのLocationヘッダに、作成したリソースのURIを設定する。"
+  "(3)","204 No Content","リクエストが成功した事を通知するHTTPステータスコード。","リクエストが成功した結果として、レスポンスのエンティティボディに、リクエストに対応するリソースの情報を出力しない時に応答する。"
+  "(4)","400 Bad Request","リクエストの構文やリクエストされた値が間違っている事を通知するHTTPステータスコード。","エンティティボディに指定されたJSONやXMLの形式不備を検出した場合や、JSONやXML又はリクエストパラメータに指定された入力値の不備を検出した場合に応答する。"
+  "(5)","404 Not Found","指定されたリソースが存在しない事を通知するHTTPステータスコード。","指定されたURIに対応するリソースがシステム内に存在しない場合に応答する。"
+  "(6)","409 Conflict",リクエストされた内容でリソースの状態を変更すると、リソースの状態に矛盾が発生ため処理を中止した事を通知するHTTPステータスコード。","排他エラーが発生した場合や業務エラーを検知した場合に応答する。エンティティボディには矛盾の内容や矛盾を解決するために必要なエラー内容を出力する必要がある。"
+  "(7)","405 Method Not Allowed","使用されたHTTPメソッドが、指定されたリソースでサポートしていない事を通知するHTTPステータスコード。","サポートされていないHTTPメソッドが使用された事を検知した場合に応答する。レスポンスのAllowヘッダに、許可されているメソッドの列挙を設定する。"
+  "(8)","406 Not Acceptable","指定された形式でリソースの状態を応答する事が出来ないため、リクエストを受理できない事を通知するHTTPステータスコード。","レスポンス形式として、拡張子又はAcceptヘッダで指定された形式をサポートしていない場合に応答する。"
+  "(9)","415 Unsupported Media Type","エンティティボディに指定された形式をサポートしていないため、リクエストが受け取れない事を通知するHTTPステータスコード。","リクエスト形式として、Content-Typeヘッダで指定された形式をサポートしていない"
+  "(10)","500 Internal Server Error","サーバ内部でエラーが発生した事を通知するHTTPステータスコード。","サーバ内で予期しないエラーが発生した場合や、正常稼働時には発生してはいけない状態を検知した場合に応答する。"
+  
+  
+* REST向けの例外ハンドリングの補助クラスとして、ResponseEntityExceptionHandlerが用意されているため、ResponseEntityExceptionHandlerを継承した例外ハンドリング用のクラスを作成し、レスポンスボディにエラー情報を出力するための実装をおこなう。
+
+
