@@ -9,3 +9,4 @@ SpringBoot
 
    basic/springboot.rst
    basic/springboot_tutorial.rst
+   basic/springboot_tutorial_intellij.rst

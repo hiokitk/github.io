@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SpringBootのアプリケーション作成(Spring Initializr) &mdash; tech-note  ドキュメント</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/translations.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="検索" href="../../../search.html" />
+    <link rel="next" title="AWSハンズオン" href="../../3-aws/index.html" />
+    <link rel="prev" title="SpringBootのアプリケーション作成" href="springboot_tutorial.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> tech-note
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">チュートリアル</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../1-terasoluna/index.html">TERASOLUNA</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">SpringBoot</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="springboot.html">SpringBootの基本</a></li>
+<li class="toctree-l3"><a class="reference internal" href="springboot_tutorial.html">SpringBootのアプリケーション作成</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">SpringBootのアプリケーション作成(Spring Initializr)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">前提事項</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">ハンズオンの実施内容</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">1.プロジェクトの作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">2.サンプルコードの作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">3.アプリケーションの実行</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#restful-web">4.サンプルコードの作成（RESTful Webサービス）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">5.アプリケーションの実行（RESTful Webサービス）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../3-aws/index.html">AWSハンズオン</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../4-cna/index.html">CNA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../5-msa/index.html">MSA</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../theme/index.html">技術検証</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../work/debug/index.html">debugメモ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../work/tools/index.html">環境構築</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">tech-note</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">チュートリアル</a> &raquo;</li>
+          <li><a href="../index.html">SpringBoot</a> &raquo;</li>
+      <li>SpringBootのアプリケーション作成(Spring Initializr)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/handson/2-springboot/basic/springboot_tutorial_intellij.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="springboot-spring-initializr">
+<h1>SpringBootのアプリケーション作成(Spring Initializr)<a class="headerlink" href="#springboot-spring-initializr" title="このヘッドラインへのパーマリンク"></a></h1>
+<ul class="simple">
+<li><p>本章ではSpringBootのチュートリアルの内容について簡単にまとめる</p></li>
+<li><p><a class="reference external" href="https://spring.pleiades.io/quickstart">実施したハンズオン</a> では、IntelliJからSpring Initializrによりサンプルアプリケーションを作成・実行した。</p></li>
+<li><p><a class="reference external" href="https://spring.pleiades.io/guides/gs/rest-service/">続いて実施したハンズオン</a> では、さらにサンプルのRESTful Webサービスを作成・実行した。</p></li>
+</ul>
+<section id="id3">
+<h2>前提事項<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク"></a></h2>
+<p>検証環境は以下の通りである。</p>
+<ul class="simple">
+<li><p>Windows10</p></li>
+<li><p>JDK1.8.0_201</p></li>
+<li><p>Apache Maven 3.6.0</p></li>
+</ul>
+</section>
+<section id="id4">
+<h2>ハンズオンの実施内容<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク"></a></h2>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>プロジェクトの作成</p></li>
+<li><p>サンプルコードの作成</p></li>
+<li><p>アプリケーションの実行</p></li>
+<li><p>サンプルコードの作成（RESTful Webサービス）</p></li>
+<li><p>アプリケーションの実行（RESTful Webサービス）</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="id5">
+<h2>1.プロジェクトの作成<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul class="simple">
+<li><p>「ファイル」→「新規」→「プロジェクト」から、ジェネレータにSpringInitializrを選択してプロジェクトを作成する。</p></li>
+<li><p>アプリケーション名、プロジェクトの場所、JDKのバージョンを選択し、次へを押下し、依存関係としてSpring Webを選択する。</p></li>
+</ul>
+</section>
+<section id="id6">
+<h2>2.サンプルコードの作成<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul class="simple">
+<li><p>src/main/java/com/example/demo フォルダーの DemoApplication.java ファイルを開き、以下のコードを追加して保存する。
+* &#64;GetMapping(&quot;/hello&quot;) は、<a class="reference external" href="http://localhost:8080/hello">http://localhost:8080/hello</a> に送信されるリクエストに応答する
+* &#64;RequestParamはリクエストでname値を期待しているが、存在しない場合は、デフォルトで&quot;World&quot;が使用される</p></li>
+</ul>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span> <span class="kn">package</span> <span class="nn">com.example.demo</span><span class="p">;</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span> <span class="kn">import</span> <span class="nn">org.springframework.boot.SpringApplication</span><span class="p">;</span>
+<span class="linenos"> 4</span> <span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="p">;</span>
+<span class="linenos"> 5</span> <span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.GetMapping</span><span class="p">;</span>
+<span class="linenos"> 6</span> <span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestParam</span><span class="p">;</span>
+<span class="linenos"> 7</span> <span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RestController</span><span class="p">;</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span> <span class="nd">@SpringBootApplication</span>
+<span class="linenos">10</span> <span class="nd">@RestController</span>
+<span class="linenos">11</span>  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">DemoApplication</span> <span class="p">{</span>
+<span class="linenos">12</span>
+<span class="linenos">13</span>   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+<span class="linenos">14</span>   <span class="n">SpringApplication</span><span class="p">.</span><span class="na">run</span><span class="p">(</span><span class="n">DemoApplication</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
+<span class="linenos">15</span>   <span class="p">}</span>
+<span class="linenos">16</span>
+<span class="linenos">17</span>   <span class="nd">@GetMapping</span><span class="p">(</span><span class="s">&quot;/hello&quot;</span><span class="p">)</span>
+<span class="linenos">18</span>   <span class="kd">public</span> <span class="n">String</span> <span class="nf">hello</span><span class="p">(</span><span class="nd">@RequestParam</span><span class="p">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="n">defaultValue</span> <span class="o">=</span> <span class="s">&quot;World&quot;</span><span class="p">)</span> <span class="n">String</span> <span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+<span class="linenos">19</span>   <span class="k">return</span> <span class="n">String</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="s">&quot;Hello %s!&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">);</span>
+<span class="linenos">20</span>   <span class="p">}</span>
+<span class="linenos">21</span>  <span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="id7">
+<h2>3.アプリケーションの実行<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul class="simple">
+<li><p>IDE上でアプリケーションを実行し、<a class="reference external" href="http://localhost:8080/hello">http://localhost:8080/hello</a> と入力すると「Hello World!」と表示される。</p></li>
+<li><p>URL の末尾に ?name=XXX を追加すると「Hello XXX!」と表示される。</p></li>
+</ul>
+</section>
+<section id="restful-web">
+<h2>4.サンプルコードの作成（RESTful Webサービス）<a class="headerlink" href="#restful-web" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul class="simple">
+<li><p>以下のリソースクラス（src/main/java/com/example/restservice/Greeting.java ）を作成する。
+* idおよびcontentのフィールド、コンストラクター、アクセサーを持つJavaオブジェクトを定義する。</p></li>
+</ul>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>  <span class="kn">package</span> <span class="nn">com.example.restservice</span><span class="p">;</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span>  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Greeting</span> <span class="p">{</span>
+<span class="linenos"> 4</span>   <span class="kd">private</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">id</span><span class="p">;</span>
+<span class="linenos"> 5</span>   <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">content</span><span class="p">;</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span>   <span class="kd">public</span> <span class="nf">Greeting</span><span class="p">(</span><span class="kt">long</span> <span class="n">id</span><span class="p">,</span> <span class="n">String</span> <span class="n">content</span><span class="p">)</span> <span class="p">{</span>
+<span class="linenos"> 8</span>      <span class="k">this</span><span class="p">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="p">;</span>
+<span class="linenos"> 9</span>      <span class="k">this</span><span class="p">.</span><span class="na">content</span> <span class="o">=</span> <span class="n">content</span><span class="p">;</span>
+<span class="linenos">10</span>   <span class="p">}</span>
+<span class="linenos">11</span>   <span class="kd">public</span> <span class="kt">long</span> <span class="nf">getId</span><span class="p">()</span> <span class="p">{</span>
+<span class="linenos">12</span>      <span class="k">return</span> <span class="n">id</span><span class="p">;</span>
+<span class="linenos">13</span>   <span class="p">}</span>
+<span class="linenos">14</span>   <span class="kd">public</span> <span class="n">String</span> <span class="nf">getContent</span><span class="p">()</span> <span class="p">{</span>
+<span class="linenos">15</span>      <span class="k">return</span> <span class="n">content</span><span class="p">;</span>
+<span class="linenos">16</span>   <span class="p">}</span>
+<span class="linenos">17</span> <span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>以下のコントローラクラス（src/main/java/com/example/restservice/GreetingController.java）を作成する。
+* /greetingに対するGETリクエストを処理し、Greetingクラスを生成して返す。
+* オブジェクトのデータは、Springのメッセージコンバータにより自動で、JSON形式に変換され、HTTPレスポンスに書き込まれる。
+* &#64;GetMappingにより、/greetingへのGETリクエストがgreeting()メソッドにマップされる
+*</p></li>
+</ul>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span> <span class="kn">package</span> <span class="nn">com.example.restservice</span><span class="p">;</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span> <span class="kn">import</span> <span class="nn">java.util.concurrent.atomic.AtomicLong</span><span class="p">;</span>
+<span class="linenos"> 4</span> <span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.GetMapping</span><span class="p">;</span>
+<span class="linenos"> 5</span> <span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestParam</span><span class="p">;</span>
+<span class="linenos"> 6</span> <span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RestController</span><span class="p">;</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span> <span class="nd">@RestController</span>
+<span class="linenos"> 9</span> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">GreetingController</span> <span class="p">{</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span>    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">template</span> <span class="o">=</span> <span class="s">&quot;Hello, %s!&quot;</span><span class="p">;</span>
+<span class="linenos">12</span>    <span class="kd">private</span> <span class="kd">final</span> <span class="n">AtomicLong</span> <span class="n">counter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AtomicLong</span><span class="p">();</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span>    <span class="nd">@GetMapping</span><span class="p">(</span><span class="s">&quot;/greeting&quot;</span><span class="p">)</span>
+<span class="linenos">15</span>    <span class="kd">public</span> <span class="n">Greeting</span> <span class="nf">greeting</span><span class="p">(</span><span class="nd">@RequestParam</span><span class="p">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="n">defaultValue</span> <span class="o">=</span> <span class="s">&quot;World&quot;</span><span class="p">)</span> <span class="n">String</span> <span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+<span class="linenos">16</span>            <span class="k">return</span> <span class="k">new</span> <span class="n">Greeting</span><span class="p">(</span><span class="n">counter</span><span class="p">.</span><span class="na">incrementAndGet</span><span class="p">(),</span> <span class="n">String</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">name</span><span class="p">));</span>
+<span class="linenos">17</span>    <span class="p">}</span>
+<span class="linenos">18</span> <span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="id8">
+<h2>5.アプリケーションの実行（RESTful Webサービス）<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul class="simple">
+<li><p>「<a class="reference external" href="http://localhost:8080/greeting">http://localhost:8080/greeting</a>」にすると、 JSON形式でのレスポンスが返却される。</p></li>
+<li><p>idはリクエスト回数。contentは、nameパラメータの値が返却される（デフォルトは、world）。</p></li>
+<li><p>正常に動作することを確認できたら、以下のコマンドにより、jar化する。</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="springboot_tutorial.html" class="btn btn-neutral float-left" title="SpringBootのアプリケーション作成" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../3-aws/index.html" class="btn btn-neutral float-right" title="AWSハンズオン" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, hiokit.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
