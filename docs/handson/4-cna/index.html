@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CNA &mdash; tech-note  ドキュメント</title>
+  <title>API GatewayとLambdaを使ったサーバレスSpringアプリケーション &mdash; tech-note  ドキュメント</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -43,12 +43,17 @@
 <li class="toctree-l2"><a class="reference internal" href="../1-terasoluna/index.html">TERASOLUNA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../2-springboot/index.html">SpringBoot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../3-aws/index.html">AWSハンズオン</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">CNA</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">API GatewayとLambdaを使ったサーバレスSpringアプリケーション</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#springcloudfunction">SpringCloudFunctionとは</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">SpringCloudFunctionの実装メモ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lambdaapigateway">Lambda関数およびAPIGatewayとの連携</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../5-msa/index.html">MSA</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../theme/index.html">技術検証</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../work/debug/index.html">debug</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../work/debug/index.html">debugメモ</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../work/tools/index.html">環境構築</a></li>
 </ul>
 
@@ -67,7 +72,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="../index.html">チュートリアル</a> &raquo;</li>
-      <li>CNA</li>
+      <li>API GatewayとLambdaを使ったサーバレスSpringアプリケーション</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/handson/4-cna/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -77,10 +82,177 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="cna">
-<h1>CNA<a class="headerlink" href="#cna" title="このヘッドラインへのパーマリンク"></a></h1>
-<p>本章ではCNAのチュートリアル時の作業メモを残す。</p>
-<p><a class="reference external" href="https://news.mynavi.jp/techplus/series/AWS/">https://news.mynavi.jp/techplus/series/AWS/</a></p>
+  <section id="api-gatewaylambdaspring">
+<h1>API GatewayとLambdaを使ったサーバレスSpringアプリケーション<a class="headerlink" href="#api-gatewaylambdaspring" title="このヘッドラインへのパーマリンク"></a></h1>
+<p>本章では以下のチュートリアル時の作業メモを残す。（第1回～第3回）
+<a class="reference external" href="https://news.mynavi.jp/techplus/series/AWS/">https://news.mynavi.jp/techplus/series/AWS/</a></p>
+<p>実施したチュートリアルでは、API GatewayとLambdaを連携し、
+Lambda関数に登録したアプリケーション（Spring Cloud Function）の処理を呼び出すというもの。</p>
+<section id="springcloudfunction">
+<h2>SpringCloudFunctionとは<a class="headerlink" href="#springcloudfunction" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul class="simple">
+<li><p>関数（Function）を使ってロジックを実行する仕組みで以下の特徴を持つ。
+* SpringFrameworkの機能をフル活用できる、かつ、SpringBootをベースとした設定の簡易化により、最小限のコーディングで構築できる
+* Function型のロジック実行をベースとしたフレームワークとなっており、Function名でAPIとして公開できる（Contollerが不要）
+* アダプタが提供されているため、AWS Lambdaのみならず、「Microsoft Azure」や「Apache OpenWhisk」といった他のサーバレス環境でも実行可能(ポータビリティ性がある)</p></li>
+</ul>
+</section>
+<section id="id1">
+<h2>SpringCloudFunctionの実装メモ<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul class="simple">
+<li><p>Spring Cloud Functionでは、基本的に、以下の4種類のクラスを実装しておく必要がある。</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>spring-cloud-function-web</p></td>
+<td><p>アプリケーションを実装するために必要</p></td>
+</tr>
+<tr class="row-even"><td><p>spring-cloud-function-adapter-aws</p></td>
+<td><p>AWSのアダプタを利用するために必要</p></td>
+</tr>
+<tr class="row-odd"><td><p>aws-lambda-java-events</p></td>
+<td><p>AWS LambdaをJavaで動かすために必要</p></td>
+</tr>
+<tr class="row-even"><td><p>aws-lambda-java-core</p></td>
+<td><p>AWS LambdaをJavaで動かすために必要</p></td>
+</tr>
+</tbody>
+</table>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">pom.xml</span><a class="headerlink" href="#id2" title="このコードへのパーマリンク"></a></div>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nt">&lt;dependencies&gt;</span>
+<span class="linenos"> 2</span> <span class="nt">&lt;dependency&gt;</span>
+<span class="linenos"> 3</span>     <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+<span class="linenos"> 4</span>     <span class="nt">&lt;artifactId&gt;</span>spring-cloud-function-web<span class="nt">&lt;/artifactId&gt;</span>
+<span class="linenos"> 5</span> <span class="nt">&lt;/dependency&gt;</span>
+<span class="linenos"> 6</span> <span class="nt">&lt;dependency&gt;</span>
+<span class="linenos"> 7</span>     <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+<span class="linenos"> 8</span>     <span class="nt">&lt;artifactId&gt;</span>spring-cloud-function-adapter-aws<span class="nt">&lt;/artifactId&gt;</span>
+<span class="linenos"> 9</span> <span class="nt">&lt;/dependency&gt;</span>
+<span class="linenos">10</span> <span class="nt">&lt;dependency&gt;</span>
+<span class="linenos">11</span>     <span class="nt">&lt;groupId&gt;</span>com.amazonaws<span class="nt">&lt;/groupId&gt;</span>
+<span class="linenos">12</span>     <span class="nt">&lt;artifactId&gt;</span>aws-lambda-java-events<span class="nt">&lt;/artifactId&gt;</span>
+<span class="linenos">13</span> <span class="nt">&lt;/dependency&gt;</span>
+<span class="linenos">14</span> <span class="nt">&lt;dependency&gt;</span>
+<span class="linenos">15</span>     <span class="nt">&lt;groupId&gt;</span>com.amazonaws<span class="nt">&lt;/groupId&gt;</span>
+<span class="linenos">16</span>     <span class="nt">&lt;artifactId&gt;</span>aws-lambda-java-core<span class="nt">&lt;/artifactId&gt;</span>
+<span class="linenos">17</span> <span class="nt">&lt;/dependency&gt;</span>
+<span class="linenos">18</span><span class="nt">&lt;/dependencies&gt;</span>
+</pre></div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Spring Cloud Functionでは、基本的に、以下の4種類のクラスを実装しておく必要がある。</p>
+<ol class="arabic simple">
+<li><dl class="simple">
+<dt>クラウド実行環境でイベントをハンドリングするクラス</dt><dd><ul>
+<li><p>APIからリクエストを受け取り、イベントとしてLambda関数を実行するクラス</p></li>
+<li><p>ハンドラクラスから、SpringのDIコンテナ構築処理が呼ばれる</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Applicaitonの実行・起動・設定を行うクラス</dt><dd><ul>
+<li><p>アプリケーションをSpring Frameworkで動かすために必要となる起動クラス</p></li>
+<li><p>SpringAppcaliton.run()メソッドを実行するmain()メソッドを持つ実行クラスに、＠SpringBootAppcalitonアノテーションを付与することで、SpringBootによりSpringFramework実行に必要なクラスが自動設定される。</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>ファンクションコードを実装したクラス</dt><dd><ul>
+<li><p>ハンドラクラス内で呼び出されるファンクションクラスをjava.util.function.Functionクラスを継承して実装する</p></li>
+<li><p>Functionクラスは、&#64;Beanで登録するか、application.ymlで、 spring.cloud.function.scan.packagesのプロパティとして指定する。</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>POJOクラス(model)</dt><dd><ul>
+<li><p>Function内で使用するフィールドを定義する。フィールド名は、jsonで定義する名称とあわせておく。</p></li>
+<li><p>json→modelへのマッピングは、SpringBootApiGatewayRequestHandlerのconvertEventメソッドにて実行される。</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>イベントの種類ごとにハンドラクラスが存在するが、今回はorg.springframework.cloud.function.adapter.aws.SpringBootApiGatewayRequestHandlerを継承する</p>
+</div>
+</section>
+<section id="lambdaapigateway">
+<h2>Lambda関数およびAPIGatewayとの連携<a class="headerlink" href="#lambdaapigateway" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul class="simple">
+<li><p>作成したアプリケーションとLambda関数を連携させるために、Lambda関数を以下の条件で作成する。</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>ランタイム</p></td>
+<td><p>Java8</p></td>
+</tr>
+<tr class="row-even"><td><p>ハンドラ</p></td>
+<td><p>ハンドラクラスのFQDN（com.example.app.ApiGatewayEventHandler）</p></td>
+</tr>
+<tr class="row-odd"><td><p>環境変数</p></td>
+<td><p>FUNCTION_NAME = apiGatewayEventFunctionとする（ファンクション名を先頭小文字で）</p></td>
+</tr>
+<tr class="row-even"><td><p>関数パッケージ</p></td>
+<td><p>作成したjarファイルをS3にアップロードしておき、S3のアップロード場所を指定する</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>作成したLambda関数とAPIGatewayを連携するために、APIGatewayを以下の条件で作成する。</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>リソースパス</p></td>
+<td><p>/sample</p></td>
+</tr>
+<tr class="row-even"><td><p>メソッド</p></td>
+<td><p>POST</p></td>
+</tr>
+<tr class="row-odd"><td><p>統合タイプ</p></td>
+<td><p>Lambda関数</p></td>
+</tr>
+<tr class="row-even"><td><p>Lambdaプロキシ統合の使用</p></td>
+<td><p>チェックする</p></td>
+</tr>
+<tr class="row-odd"><td><p>Lambda関数</p></td>
+<td><p>作成したLambda関数名を選択</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>Lambdaプロキシ統合とは、API Gatewayが受け取ったパラメータやリクエストヘッダなどの情報をlambdaのevent引数にわたすようにする方法のこと。
+lambdaのevent引数から、com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEventとして、
+SpringBootApiGatewayRequestHandlerが、パラメータと受け取りjsonをmodelクラスに変換している。</p>
+</div>
+<ul>
+<li><p>作成後、devステージにデプロイする。エンドポイントのURLに対して、以下コマンドによりリクエストを実行。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>$ curl -d <span class="s1">&#39;{&quot;test&quot;:&quot;TestMessage&quot;}&#39;</span> https://xxxxxxxx.execute-api.ap-northeast-1.amazonaws.com/dev/sample
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
 </section>
 
 
