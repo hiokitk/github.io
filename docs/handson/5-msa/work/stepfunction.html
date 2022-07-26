@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AWS Step Functionsについて &mdash; tech-note  ドキュメント</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/translations.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="検索" href="../../../search.html" />
+    <link rel="next" title="AWS Step Functionsチュートリアル" href="stepfunction_tutorial.html" />
+    <link rel="prev" title="StepFunciton" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> tech-note
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">チュートリアル</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../1-terasoluna/index.html">TERASOLUNA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../2-springboot/index.html">SpringBoot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../3-aws/index.html">AWSハンズオン</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../4-cna/index.html">API GatewayとLambdaを使ったサーバレスSpringアプリケーション</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">StepFunciton</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">AWS Step Functionsについて</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">AWS Step Functions とは</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">ユースケース</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#express">同期Express ワークフローとは</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">少し手を動かしてみた</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">自身の考え、次のアクション</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">参考情報</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="stepfunction_tutorial.html">AWS Step Functionsチュートリアル</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../theme/index.html">技術検証</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../work/debug/index.html">debugメモ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../work/tools/index.html">環境構築</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">tech-note</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">チュートリアル</a> &raquo;</li>
+          <li><a href="../index.html">StepFunciton</a> &raquo;</li>
+      <li>AWS Step Functionsについて</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/handson/5-msa/work/stepfunction.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="aws-step-functions">
+<h1>AWS Step Functionsについて<a class="headerlink" href="#aws-step-functions" title="このヘッドラインへのパーマリンク"></a></h1>
+<p><a class="reference external" href="https://docs.aws.amazon.com/ja_jp/step-functions/latest/dg/welcome.html">ディベロッパーガイド</a> など調べてまずはまとめた。</p>
+<section id="id2">
+<h2>AWS Step Functions とは<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul>
+<li><p>サーバレスなワークフロー処理を作成することができるサービス。ステートマシンとタスクで構成されている。</p></li>
+<li><p>ステートマシンとは、ワークフロー全体の処理のこと。ステートマシンの一つ一つの処理単位をStateと呼ぶ。</p></li>
+<li><p>Stateは以下の7種類がある。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Task</p></td>
+<td><p>単一の処理をおこなう基本的なState。タスクの実行基盤としてLambdaやECS等選択可能。</p></td>
+</tr>
+<tr class="row-even"><td><p>Pass</p></td>
+<td><p>前stateのoutputをそのままパススルーするState。デバック用途で使うことが多い。</p></td>
+</tr>
+<tr class="row-odd"><td><p>Wait</p></td>
+<td><p>指定した時間待機するState。</p></td>
+</tr>
+<tr class="row-even"><td><p>Parallel</p></td>
+<td><p>複数のTaskを並列に処理する。Parallel内の処理が完了したら次処理に遷移する。</p></td>
+</tr>
+<tr class="row-odd"><td><p>Choice</p></td>
+<td><p>IF文のような条件分岐用のState。前処理のoutputの値により分岐するなどする。</p></td>
+</tr>
+<tr class="row-even"><td><p>Succeed,Fail</p></td>
+<td><p>Choiceとあわせて使用する。Succeed,Failに到達した段階でステートマシンは終了する。</p></td>
+</tr>
+<tr class="row-odd"><td><p>Map</p></td>
+<td><p>動的並列処理をおこなうState。inputに配列を受け取り、配列の数だけ処理を繰り返す。</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</section>
+<section id="id3">
+<h2>ユースケース<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul class="simple">
+<li><p>複数Lambda関数の順次処理、アプリケーションのジョブ管理、大容量ファイルの並列実行などの用途で用いる。</p></li>
+<li><p>具体的には以下のとおり。</p>
+<ol class="arabic simple">
+<li><dl class="simple">
+<dt>データ処理</dt><dd><ul>
+<li><p>バッチ処理用のAWSBatch、ビッグデータ処理用のAmazonEMR、データ準備用のAWSGlue、データ分析用のAthena、コンピューティング用のAWSLambdaなど他のAWSサービスと連携する。</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>機械学習</dt><dd><ul>
+<li><p>Amazon SageMaker上で、データの前処理、後処理、特徴エンジニアリング、データ検証、モデル評価といった機械学習のワークフローをオーケストレートできる。</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>マイクロサービスのオーケストレーション</dt><dd><ul>
+<li><p>複数のマイクロサービスを組み合わせてワークフローとして管理ができる。</p></li>
+<li><p>長時間実行されるワークフローは&quot;標準ワークフロー&quot;が適している。</p></li>
+<li><p>即時対応が必要な、短期間の大量のワークフローは&quot;同期Expressワークフロー&quot;が適している。（ウェブベースまたはモバイルアプリケーションに適用）</p></li>
+<li><p>ただちに応答を必要としない短期間のワークフローの場合、&quot;非同期Expressワークフロー&quot;が適している。</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>ITおよびセキュリティのオートメーション</dt><dd><ul>
+<li><p>ソフトウェアのアップグレードとパッチ適用、脆弱性に取り組むためセキュリティ更新プログラムのデプロイ、インフラストラクチャの選択、データの同期、サポートチケットのルーティングなどの操作を管理</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+</li>
+</ul>
+</section>
+<section id="express">
+<h2>同期Express ワークフローとは<a class="headerlink" href="#express" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul class="simple">
+<li><p>ワークフローをスタートすると、Step Functionsは、&quot;タスクが完了するまで待機&quot;し、結果を返すというもの。</p></li>
+<li><p>サービス例外が発生した場合、Step Functionsは最初から再起動しないため、ロジックがべき等となるようつくる必要がある。</p></li>
+<li><p>ワークフローは Amazon API Gateway、AWS Lambda から、または StartSyncExecution API コールを使って呼び出すことができる。</p></li>
+</ul>
+</section>
+<section id="id4">
+<h2>少し手を動かしてみた<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul class="simple">
+<li><p>以下チュートリアルで、複数のAWS Lambda関数を連携させたサーバーレスワークフローを作成した。
+<a class="reference external" href="https://aws.amazon.com/jp/getting-started/hands-on/create-a-serverless-workflow-step-functions-lambda/">https://aws.amazon.com/jp/getting-started/hands-on/create-a-serverless-workflow-step-functions-lambda/</a></p></li>
+</ul>
+</section>
+<section id="id5">
+<h2>自身の考え、次のアクション<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul class="simple">
+<li><p>1処理で、複数のAPIを呼び出すケースなどにおいては、StepFunctionによるワークフロー化が有効ではないかと思っている。</p></li>
+<li><p>APIGatewayやLambdaとの連携方法に関するチュートリアルを実施。
+<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/step-functions/latest/dg/tutorial-api-gateway.html">https://docs.aws.amazon.com/ja_jp/step-functions/latest/dg/tutorial-api-gateway.html</a>
+<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/step-functions/latest/dg/tutorial-creating-lambda-state-machine.html">https://docs.aws.amazon.com/ja_jp/step-functions/latest/dg/tutorial-creating-lambda-state-machine.html</a></p></li>
+</ul>
+</section>
+<section id="id6">
+<h2>参考情報<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul class="simple">
+<li><p>マイクロサービスのオーケストレーションにStepFunctionの同期Expressワークフローが有効
+<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/step-functions/latest/dg/use-cases-orchestration.html">https://docs.aws.amazon.com/ja_jp/step-functions/latest/dg/use-cases-orchestration.html</a></p></li>
+<li><p>同期Expressワークフローの起動方法
+<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/step-functions/latest/dg/concepts-express-synchronous.html">https://docs.aws.amazon.com/ja_jp/step-functions/latest/dg/concepts-express-synchronous.html</a></p></li>
+<li><p>StepFunctionを使用してAPIgatewayを呼ぶ
+<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/step-functions/latest/dg/connect-api-gateway.html">https://docs.aws.amazon.com/ja_jp/step-functions/latest/dg/connect-api-gateway.html</a></p></li>
+<li><p>同期Expressワークフローが最近リリース
+<a class="reference external" href="https://www.infoq.com/jp/news/2021/04/synchronous-aws-step-functions/">https://www.infoq.com/jp/news/2021/04/synchronous-aws-step-functions/</a></p></li>
+<li><p>メモ
+<a class="reference external" href="https://zenn.dev/pirosikick/scraps/460467f55ccc86">https://zenn.dev/pirosikick/scraps/460467f55ccc86</a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="StepFunciton" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="stepfunction_tutorial.html" class="btn btn-neutral float-right" title="AWS Step Functionsチュートリアル" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, hiokit.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

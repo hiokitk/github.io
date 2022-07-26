@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AWS Step Functionsチュートリアル &mdash; tech-note  ドキュメント</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/translations.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="検索" href="../../../search.html" />
+    <link rel="next" title="技術検証" href="../../../theme/index.html" />
+    <link rel="prev" title="AWS Step Functionsについて" href="stepfunction.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> tech-note
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">チュートリアル</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../1-terasoluna/index.html">TERASOLUNA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../2-springboot/index.html">SpringBoot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../3-aws/index.html">AWSハンズオン</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../4-cna/index.html">API GatewayとLambdaを使ったサーバレスSpringアプリケーション</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">StepFunciton</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="stepfunction.html">AWS Step Functionsについて</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">AWS Step Functionsチュートリアル</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">チュートリアルの流れ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lambda">1. Lambda関数を作成する</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iam">2. IAMロールを作成する</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-functions">3. Step Functionsのステートマシンを作成する</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">4. ステートマシンのテスト</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#workflow-studio">Workflow Studioを用いたステートマシンの作成</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../theme/index.html">技術検証</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../work/debug/index.html">debugメモ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../work/tools/index.html">環境構築</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">tech-note</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">チュートリアル</a> &raquo;</li>
+          <li><a href="../index.html">StepFunciton</a> &raquo;</li>
+      <li>AWS Step Functionsチュートリアル</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/handson/5-msa/work/stepfunction_tutorial.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="aws-step-functions">
+<h1>AWS Step Functionsチュートリアル<a class="headerlink" href="#aws-step-functions" title="このヘッドラインへのパーマリンク"></a></h1>
+<p><a class="reference external" href="https://aws.amazon.com/jp/getting-started/hands-on/handle-serverless-application-errors-step-functions-lambda/">StepFunctionによるLambdaのエラーハンドリング</a> に関するチュートリアルを実施した結果を整理する。</p>
+<section id="id1">
+<h2>チュートリアルの流れ<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク"></a></h2>
+</section>
+<section id="lambda">
+<h2>1. Lambda関数を作成する<a class="headerlink" href="#lambda" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul>
+<li><p>[名前]は任意。[実行ロール]は[基本的なLambdaアクセス権限で新しいロールを作成]とする。</p></li>
+<li><p>[ランタイム] は [Python 3.6] とする。</p></li>
+<li><p>コードに以下の内容を入力し、保存する。作成後、ARNをメモしておく。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TooManyRequestsException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span> <span class="k">pass</span>
+<span class="k">class</span> <span class="nc">ServerUnavailableException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span> <span class="k">pass</span>
+<span class="k">class</span> <span class="nc">UnknownException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span> <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">lambda_handler</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+   <span class="n">statuscode</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="s2">&quot;statuscode&quot;</span><span class="p">]</span>
+   <span class="k">if</span> <span class="n">statuscode</span> <span class="o">==</span> <span class="s2">&quot;429&quot;</span><span class="p">:</span>
+   <span class="k">raise</span> <span class="n">TooManyRequestsException</span><span class="p">(</span><span class="s1">&#39;429 Too Many Requests&#39;</span><span class="p">)</span>
+   <span class="k">elif</span> <span class="n">statuscode</span> <span class="o">==</span> <span class="s2">&quot;503&quot;</span><span class="p">:</span>
+   <span class="k">raise</span> <span class="n">ServerUnavailableException</span><span class="p">(</span><span class="s1">&#39;503 Server Unavailable&#39;</span><span class="p">)</span>
+   <span class="k">elif</span> <span class="n">statuscode</span> <span class="o">==</span> <span class="s2">&quot;200&quot;</span><span class="p">:</span>
+   <span class="k">return</span> <span class="s1">&#39;200 OK&#39;</span>
+   <span class="k">else</span><span class="p">:</span>
+   <span class="k">raise</span> <span class="n">UnknownException</span><span class="p">(</span><span class="s1">&#39;Unknown error&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="iam">
+<h2>2. IAMロールを作成する<a class="headerlink" href="#iam" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul class="simple">
+<li><p>[信頼されたエンティティタイプ] からAWSのサービスにチェックし、ユースケースでStepFunctionを選択する。</p></li>
+<li><p>[ロール名] は「step_functions_basic_execution」としておく。</p></li>
+</ul>
+</section>
+<section id="step-functions">
+<h2>3. Step Functionsのステートマシンを作成する<a class="headerlink" href="#step-functions" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul>
+<li><p>ステートマシンの作成には、Amazon States Language（ASL）というJSONベースの独自の構造化言語で記述されたテンプレートを使用する。</p></li>
+<li><p>ASLには以下の内容を入力し、保存する。</p>
+<blockquote>
+<div><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="nt">&quot;Comment&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;An example of using retry and catch to handle API responses&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="nt">&quot;StartAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Call API&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="nt">&quot;States&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w"> </span><span class="nt">&quot;Call API&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;Type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Task&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;Resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arn:aws:lambda:REGION:ACCOUNT_ID:function:FUNCTION_NAME&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;Next&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OK&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;Comment&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Catch a 429 (Too many requests) API exception, and resubmit the failed request in a rate-limiting fashion.&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;Retry&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="nt">&quot;ErrorEquals&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">&quot;TooManyRequestsException&quot;</span><span class="w"> </span><span class="p">],</span><span class="w"></span>
+<span class="w">     </span><span class="nt">&quot;IntervalSeconds&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<span class="w">     </span><span class="nt">&quot;MaxAttempts&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w"></span>
+<span class="w">   </span><span class="p">}</span><span class="w"> </span><span class="p">],</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;Catch&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">     </span><span class="p">{</span><span class="w"></span>
+<span class="w">       </span><span class="nt">&quot;ErrorEquals&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;TooManyRequestsException&quot;</span><span class="p">],</span><span class="w"></span>
+<span class="w">       </span><span class="nt">&quot;Next&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Wait and Try Later&quot;</span><span class="w"></span>
+<span class="w">     </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">       </span><span class="nt">&quot;ErrorEquals&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;ServerUnavailableException&quot;</span><span class="p">],</span><span class="w"></span>
+<span class="w">       </span><span class="nt">&quot;Next&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Server Unavailable&quot;</span><span class="w"></span>
+<span class="w">     </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">       </span><span class="nt">&quot;ErrorEquals&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;States.ALL&quot;</span><span class="p">],</span><span class="w"></span>
+<span class="w">       </span><span class="nt">&quot;Next&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Catch All&quot;</span><span class="w"></span>
+<span class="w">     </span><span class="p">}</span><span class="w"></span>
+<span class="w">   </span><span class="p">]</span><span class="w"></span>
+<span class="w"> </span><span class="p">},</span><span class="w"></span>
+<span class="w"> </span><span class="nt">&quot;Wait and Try Later&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;Type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Wait&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;Seconds&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;Next&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Change to 200&quot;</span><span class="w"></span>
+<span class="w"> </span><span class="p">},</span><span class="w"></span>
+<span class="w"> </span><span class="nt">&quot;Server Unavailable&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;Type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Fail&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;Error&quot;</span><span class="p">:</span><span class="s2">&quot;ServerUnavailable&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;Cause&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;The server is currently unable to handle the request.&quot;</span><span class="w"></span>
+<span class="w"> </span><span class="p">},</span><span class="w"></span>
+<span class="w"> </span><span class="nt">&quot;Catch All&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;Type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Fail&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;Cause&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Unknown error!&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;Error&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;An error of unknown type occurred&quot;</span><span class="w"></span>
+<span class="w"> </span><span class="p">},</span><span class="w"></span>
+<span class="w"> </span><span class="nt">&quot;Change to 200&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;Type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Pass&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;Result&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;statuscode&quot;</span><span class="w"> </span><span class="p">:</span><span class="s2">&quot;200&quot;</span><span class="p">}</span><span class="w"> </span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;Next&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Call API&quot;</span><span class="w"></span>
+<span class="w"> </span><span class="p">},</span><span class="w"></span>
+<span class="w"> </span><span class="nt">&quot;OK&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;Type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Pass&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;Result&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;The request has succeeded.&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;End&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>StepFunctionsマネジメントコンソールの[ステートマシンの作成]から、[コードでワークフローを記述]を選択し、タイプは[標準]を選択する。</p></li>
+<li><p>定義画面上で、ASLのコードを貼り付け、Resourceの部分（7行目）に作成したLambda関数のARNを記載する。ロールは既存のロールを選択し、前の手順で作成したロールを記載する。</p></li>
+</ul>
+</section>
+<section id="id2">
+<h2>4. ステートマシンのテスト<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul>
+<li><p>[実行の開始]から、ステートマシンを実行する。inputの内容を変更し、作成したステートマシンの挙動を確認した。</p></li>
+<li><p>正常系(statuscode=200）、異常系（statuscode=503）、リトライ（statuscode=429）、その他例外（statuscode=999）のパターンで入力値を変更した。</p></li>
+<li><p>実行結果は、ワークフローと出力値として得られる。正常系のケースでは、以下のように表示される。また、[実行イベント履歴]から発生例外などの詳細ログが得られる。</p>
+<blockquote>
+<div><img alt="https://d1.awsstatic.com/tmt/handle-serverless-application-errors-step-functions-lambda/04d.0a1f72a7639691b8be32d6335af987ddb08db0a4.png" src="https://d1.awsstatic.com/tmt/handle-serverless-application-errors-step-functions-lambda/04d.0a1f72a7639691b8be32d6335af987ddb08db0a4.png" />
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="workflow-studio">
+<h2>Workflow Studioを用いたステートマシンの作成<a class="headerlink" href="#workflow-studio" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul class="simple">
+<li><p>StepFunctionsのステートマシン作成画面から「ワークフローを視覚的に設計」を選択する。</p></li>
+<li><p>次の画面へ遷移すると、「ワークフローを設計」画面となり、以下のようにGUIベースでステートマシンの作成が可能となる。</p></li>
+</ul>
+<img alt="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2021/09/c56bc88b3e31533407116e400fcbb431.png" src="https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2021/09/c56bc88b3e31533407116e400fcbb431.png" />
+<ul class="simple">
+<li><p>Lambda関数を挿入する場合は、[アクション]の[Lambda:Invoke]をドラッグ＆ドロップし、[Functionname]にLambda関数名を入力する。</p></li>
+<li><p>エラー処理を実装する場合は、[エラー処理]タブの[キャッチャーの編集]を選択し、[Errors]にエラー名を入力する</p></li>
+<li><p>異常終了させる場合は、[キャッチャーの編集]から[新しい状態の追加]を選択し、[フロー]の[Fail]をドラッグ＆ドロップし、Errorオプション、Causeオプションを入力する。</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="stepfunction.html" class="btn btn-neutral float-left" title="AWS Step Functionsについて" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../../theme/index.html" class="btn btn-neutral float-right" title="技術検証" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, hiokit.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
