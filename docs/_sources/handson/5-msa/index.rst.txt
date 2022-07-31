@@ -9,3 +9,4 @@ StepFunciton
 
    work/stepfunction.rst
    work/stepfunction_tutorial.rst
+   work/stepfunction_tutorial_2.rst

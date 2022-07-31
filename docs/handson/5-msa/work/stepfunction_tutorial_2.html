@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AWS Step Functionsチュートリアル２ &mdash; tech-note  ドキュメント</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/translations.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="検索" href="../../../search.html" />
+    <link rel="next" title="技術検証" href="../../../theme/index.html" />
+    <link rel="prev" title="AWS Step Functionsチュートリアル" href="stepfunction_tutorial.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> tech-note
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">チュートリアル</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../1-terasoluna/index.html">TERASOLUNA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../2-springboot/index.html">SpringBoot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../3-aws/index.html">AWSハンズオン</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../4-cna/index.html">API GatewayとLambdaを使ったサーバレスSpringアプリケーション</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">StepFunciton</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="stepfunction.html">AWS Step Functionsについて</a></li>
+<li class="toctree-l3"><a class="reference internal" href="stepfunction_tutorial.html">AWS Step Functionsチュートリアル</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">AWS Step Functionsチュートリアル２</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">チュートリアルの流れ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api-gatewayiam">1. API Gateway用のIAMロールを作成する</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api-gateway-api">2. API Gateway APIを作成する</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">3. API Gateway APIのテストとデプロイ</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../theme/index.html">技術検証</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../work/debug/index.html">debugメモ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../work/tools/index.html">環境構築</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">tech-note</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">チュートリアル</a> &raquo;</li>
+          <li><a href="../index.html">StepFunciton</a> &raquo;</li>
+      <li>AWS Step Functionsチュートリアル２</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/handson/5-msa/work/stepfunction_tutorial_2.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="aws-step-functions2">
+<h1>AWS Step Functionsチュートリアル２<a class="headerlink" href="#aws-step-functions2" title="このヘッドラインへのパーマリンク"></a></h1>
+<p><a class="reference external" href="https://docs.aws.amazon.com/ja_jp/step-functions/latest/dg/tutorial-api-gateway.html">APIGatewayからStepFunctionの呼び出し</a> に関するチュートリアルを実施した結果を整理する。</p>
+<section id="id1">
+<h2>チュートリアルの流れ<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク"></a></h2>
+</section>
+<section id="api-gatewayiam">
+<h2>1. API Gateway用のIAMロールを作成する<a class="headerlink" href="#api-gatewayiam" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul class="simple">
+<li><p>[信頼されたエンティティタイプ]で、[AWSサービス]のAPI Gatewayを選択</p></li>
+<li><p>ロール名に、&quot;APIGatewayToStepFunctions&quot;と入力し、ロールを作成する</p></li>
+<li><p>ロール作成後、ポリシーのアタッチで、&quot;AWSStepFunctionsFullAccess&quot;を追加する</p></li>
+</ul>
+</section>
+<section id="api-gateway-api">
+<h2>2. API Gateway APIを作成する<a class="headerlink" href="#api-gateway-api" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul class="simple">
+<li><p>REST API ボックスで、[構築]を選択</p></li>
+<li><p>[新しいAPIの作成]でAPI名を&quot;StartExecutionAPI&quot;とする</p></li>
+<li><p>[アクション]からリソースを作成する。リソース名は、&quot;execution&quot;とする</p></li>
+<li><p>[アクション]からメソッドをPOSTで作成する。[統合タイプ]を&quot;AWSサービス&quot;とし、StepFuncitonを選択</p></li>
+<li><p>[HTTP メソッド]は&quot;POST&quot;、[アクションの種類]は&quot;アクション名の使用&quot;、[アクション]は&quot;StartExecution&quot;とする</p></li>
+</ul>
+</section>
+<section id="id2">
+<h2>3. API Gateway APIのテストとデプロイ<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク"></a></h2>
+<ul class="simple">
+<li><p>メソッドの実行ページで、[テスト]を選択する</p></li>
+<li><p>リクエストBodyに、入力データ、実行名、ステートマシンのARNを入れて、テスト実行した</p></li>
+<li><p>StepFunctionの入力（statuscode）により、エラーハンドリングするはずだが、失敗している状況</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="stepfunction_tutorial.html" class="btn btn-neutral float-left" title="AWS Step Functionsチュートリアル" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../../theme/index.html" class="btn btn-neutral float-right" title="技術検証" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, hiokit.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
